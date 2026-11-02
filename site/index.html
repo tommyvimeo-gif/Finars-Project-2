@@ -62,7 +62,63 @@
   }
   .mobile-nav a { display: flex; min-height: 48px; align-items: center; color: var(--muted); text-decoration: none; font-size: 18px; }
   .hero { position: relative; min-height: 100dvh; display: flex; align-items: flex-end; padding: 96px 0 72px; overflow: hidden; }
-  .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.42; }
+  .hero-bg {
+    position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover; opacity: 0.42;
+    animation: hero-drift 32s ease-in-out infinite alternate;
+  }
+  .bg-anim {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .bg-grid {
+    position: absolute; inset: -50% 0 auto; height: 160%;
+    background-image:
+      linear-gradient(rgb(232 226 214 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(232 226 214 / 0.07) 1px, transparent 1px);
+    background-size: 84px 84px;
+    transform: perspective(520px) rotateX(62deg);
+    transform-origin: center top;
+    animation: grid-drift 28s linear infinite;
+    mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent);
+  }
+  .bg-glow {
+    position: absolute; border-radius: 50%; filter: blur(72px); opacity: 0.55;
+  }
+  .bg-glow.a {
+    width: 46vw; height: 46vw; left: -10%; top: 8%;
+    background: radial-gradient(circle, rgb(207 200 186 / 0.42), transparent 68%);
+    animation: glow-a 24s ease-in-out infinite alternate;
+  }
+  .bg-glow.b {
+    width: 38vw; height: 38vw; right: -8%; top: 42%;
+    background: radial-gradient(circle, rgb(92 88 80 / 0.55), transparent 70%);
+    animation: glow-b 30s ease-in-out infinite alternate;
+  }
+  .bg-glow.c {
+    width: 30vw; height: 30vw; left: 32%; bottom: -10%;
+    background: radial-gradient(circle, rgb(232 226 214 / 0.22), transparent 70%);
+    animation: glow-c 20s ease-in-out infinite alternate;
+  }
+  main, footer { position: relative; z-index: 1; }
+  @keyframes grid-drift {
+    from { background-position: 0 0; }
+    to { background-position: 0 84px; }
+  }
+  @keyframes glow-a {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(10%, 8%, 0) scale(1.18); }
+  }
+  @keyframes glow-b {
+    from { transform: translate3d(0, 0, 0) scale(1.08); }
+    to { transform: translate3d(-12%, -8%, 0) scale(0.88); }
+  }
+  @keyframes glow-c {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-8%, -12%, 0) scale(1.22); }
+  }
+  @keyframes hero-drift {
+    from { transform: scale(1) translate3d(0, 0, 0); }
+    to { transform: scale(1.08) translate3d(-2.2%, -1.6%, 0); }
+  }
   .hero-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(12 12 11 / 0.35), rgb(12 12 11 / 0.72) 55%, var(--bg)); }
   .hero-copy { position: relative; }
   .kicker { letter-spacing: 0.18em; text-transform: uppercase; font-size: 12px; font-weight: 500; color: var(--fg); margin: 0 0 16px; }
@@ -168,10 +224,17 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .card img { transition: none; }
+    .bg-grid, .bg-glow, .hero-bg { animation: none; }
   }
 </style>
 </head>
 <body>
+<div class="bg-anim" aria-hidden="true">
+  <div class="bg-glow a"></div>
+  <div class="bg-glow b"></div>
+  <div class="bg-glow c"></div>
+  <div class="bg-grid"></div>
+</div>
 <header>
   <div class="bar">
     <a class="brand" href="#top"><span class="mark">FA</span><span class="brand-name">Fin Ars</span></a>

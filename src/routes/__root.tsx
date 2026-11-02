@@ -38,6 +38,12 @@ export const Route = createRootRoute({
         <HeadContent />
       </head>
       <body>
+        <div className="bg-anim" aria-hidden="true">
+          <div className="bg-glow bg-glow-a" />
+          <div className="bg-glow bg-glow-b" />
+          <div className="bg-glow bg-glow-c" />
+          <div className="bg-grid" />
+        </div>
         <PreviewHostBridge />
         <AuthProvider>
           <LocaleProvider>

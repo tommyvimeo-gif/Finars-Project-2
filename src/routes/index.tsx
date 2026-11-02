@@ -20,14 +20,14 @@ function Home() {
   const { t } = useLocale();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative z-[1] min-h-screen bg-transparent text-foreground">
       <SiteHeader />
 
       <section className="relative min-h-[100dvh] overflow-hidden pt-16">
         <img
           src="/projects/hisa-v-gozdu/01.jpg"
           alt=""
-          className="absolute inset-0 size-full object-cover opacity-40"
+          className="hero-drift absolute inset-[-4%] size-[108%] object-cover opacity-40"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
         <div className="relative mx-auto flex min-h-[calc(100dvh-4rem)] max-w-6xl flex-col justify-end px-4 pb-16 sm:px-6 sm:pb-24">

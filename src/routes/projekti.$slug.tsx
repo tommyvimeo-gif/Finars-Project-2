@@ -21,7 +21,7 @@ function ProjectPage() {
   const related = projects.filter((p) => p.slug !== slug).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="relative z-[1] min-h-screen bg-transparent text-foreground">
       <SiteHeader />
       <main className="mx-auto max-w-6xl px-4 pt-24 pb-20 sm:px-6">
         <Link

@@ -40,6 +40,91 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
+
+  .bg-anim {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: -50% 0 auto;
+    height: 160%;
+    background-image:
+      linear-gradient(rgb(232 226 214 / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(232 226 214 / 0.07) 1px, transparent 1px);
+    background-size: 84px 84px;
+    transform: perspective(520px) rotateX(62deg);
+    transform-origin: center top;
+    animation: grid-drift 28s linear infinite;
+    mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent);
+  }
+
+  .bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(72px);
+    opacity: 0.55;
+  }
+
+  .bg-glow-a {
+    width: 46vw;
+    height: 46vw;
+    left: -10%;
+    top: 8%;
+    background: radial-gradient(circle, rgb(207 200 186 / 0.42), transparent 68%);
+    animation: glow-a 24s ease-in-out infinite alternate;
+  }
+
+  .bg-glow-b {
+    width: 38vw;
+    height: 38vw;
+    right: -8%;
+    top: 42%;
+    background: radial-gradient(circle, rgb(92 88 80 / 0.55), transparent 70%);
+    animation: glow-b 30s ease-in-out infinite alternate;
+  }
+
+  .bg-glow-c {
+    width: 30vw;
+    height: 30vw;
+    left: 32%;
+    bottom: -10%;
+    background: radial-gradient(circle, rgb(232 226 214 / 0.22), transparent 70%);
+    animation: glow-c 20s ease-in-out infinite alternate;
+  }
+
+  .hero-drift {
+    animation: hero-drift 32s ease-in-out infinite alternate;
+  }
+
+  @keyframes grid-drift {
+    from { background-position: 0 0; }
+    to { background-position: 0 84px; }
+  }
+
+  @keyframes glow-a {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to { transform: translate3d(10%, 8%, 0) scale(1.18); }
+  }
+
+  @keyframes glow-b {
+    from { transform: translate3d(0, 0, 0) scale(1.08); }
+    to { transform: translate3d(-12%, -8%, 0) scale(0.88); }
+  }
+
+  @keyframes glow-c {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-8%, -12%, 0) scale(1.22); }
+  }
+
+  @keyframes hero-drift {
+    from { transform: scale(1.08) translate3d(0, 0, 0); }
+    to { transform: scale(1.16) translate3d(-2.2%, -1.6%, 0); }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
