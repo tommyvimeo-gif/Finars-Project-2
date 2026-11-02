@@ -2,17 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useLocale, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-
-const links = [
-  { href: "/#projekti", label: "Projekti" },
-  { href: "/#storitve", label: "Storitve" },
-  { href: "/#o-nas", label: "O nas" },
-  { href: "/#kontakt", label: "Kontakt" },
-];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { locale, setLocale, t } = useLocale();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
@@ -25,26 +20,29 @@ export function SiteHeader() {
             Fin Ars
           </span>
         </Link>
-        <nav className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="md:hidden"
-          aria-label={open ? "Zapri meni" : "Odpri meni"}
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </Button>
+        <div className="flex items-center gap-2 sm:gap-6">
+          <nav className="hidden items-center gap-8 md:flex">
+            {t.nav.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <LangSwitch locale={locale} setLocale={setLocale} label={t.langLabel} />
+          <Button
+            variant="ghost"
+            size="sm"
+            className="md:hidden"
+            aria-label={open ? t.menuClose : t.menuOpen}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </Button>
+        </div>
       </div>
       <div
         className={cn(
@@ -53,7 +51,7 @@ export function SiteHeader() {
         )}
       >
         <nav className="flex flex-col gap-1 px-4 py-4">
-          {links.map((l) => (
+          {t.nav.map((l) => (
             <a
               key={l.href}
               href={l.href}
@@ -66,5 +64,34 @@ export function SiteHeader() {
         </nav>
       </div>
     </header>
+  );
+}
+
+function LangSwitch({
+  locale,
+  setLocale,
+  label,
+}: {
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+  label: string;
+}) {
+  return (
+    <div className="flex items-center" role="group" aria-label={label}>
+      {(["sl", "en"] as const).map((code) => (
+        <button
+          key={code}
+          type="button"
+          aria-pressed={locale === code}
+          onClick={() => setLocale(code)}
+          className={cn(
+            "min-h-11 min-w-11 text-xs font-medium tracking-[0.16em] uppercase",
+            locale === code ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+          )}
+        >
+          {code}
+        </button>
+      ))}
+    </div>
   );
 }
