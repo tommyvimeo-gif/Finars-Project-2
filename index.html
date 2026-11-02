@@ -149,6 +149,13 @@
   .dlg h2 { font-size: clamp(32px, 4vw, 46px); margin-top: 8px; }
   .dlg .meta { color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-size: 12px; margin: 18px 0 0; }
   .dlg .authors, .dlg .summary { color: var(--muted); line-height: 1.7; }
+  .bar-end { display: flex; align-items: center; gap: 4px; }
+  .langs { display: flex; }
+  .langs button {
+    min-width: 44px; min-height: 44px; padding: 0; border: 0; background: none;
+    color: var(--muted); font: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.16em;
+  }
+  .langs button[aria-pressed="true"] { color: var(--fg); }
   @media (max-width: 860px) {
     nav { display: none; }
     .menu-btn { display: grid; place-items: center; }
@@ -168,20 +175,26 @@
 <header>
   <div class="bar">
     <a class="brand" href="#top"><span class="mark">FA</span><span class="brand-name">Fin Ars</span></a>
+    <div class="bar-end">
     <nav>
-      <a href="#projekti">Projekti</a>
-      <a href="#storitve">Storitve</a>
-      <a href="#o-nas">O nas</a>
-      <a href="#kontakt">Kontakt</a>
+      <a href="#projekti" data-i18n="nav0">Projekti</a>
+      <a href="#storitve" data-i18n="nav1">Storitve</a>
+      <a href="#o-nas" data-i18n="nav2">O nas</a>
+      <a href="#kontakt" data-i18n="nav3">Kontakt</a>
     </nav>
+    <div class="langs" role="group" aria-label="Jezik">
+      <button type="button" data-set-lang="sl" aria-pressed="true">SL</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Odpri meni">☰</button>
+    </div>
   </div>
 </header>
 <div class="mobile-nav" id="mobile-nav">
-  <a href="#projekti">Projekti</a>
-  <a href="#storitve">Storitve</a>
-  <a href="#o-nas">O nas</a>
-  <a href="#kontakt">Kontakt</a>
+  <a href="#projekti" data-i18n="nav0">Projekti</a>
+  <a href="#storitve" data-i18n="nav1">Storitve</a>
+  <a href="#o-nas" data-i18n="nav2">O nas</a>
+  <a href="#kontakt" data-i18n="nav3">Kontakt</a>
 </div>
 
 <main id="top">
@@ -189,29 +202,29 @@
     <img class="hero-bg" src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/01.jpg" alt="">
     <div class="hero-shade"></div>
     <div class="wrap hero-copy">
-      <p class="kicker">Arhitekturni biro · od 2006</p>
-      <h1>Oblikujemo <em>prostore</em> z namenom</h1>
-      <p class="lede">Center za arhitekturo, gradbeno projektiranje in celovite storitve — od ideje do izvedbe.</p>
+      <p class="kicker" data-i18n="heroKicker">Arhitekturni biro · od 2006</p>
+      <h1 data-i18n-html="heroTitle">Oblikujemo <em>prostore</em> z namenom</h1>
+      <p class="lede" data-i18n="lede">Center za arhitekturo, gradbeno projektiranje in celovite storitve — od ideje do izvedbe.</p>
       <div class="actions">
-        <a class="btn btn-solid" href="#projekti">Ogled projektov</a>
-        <a class="btn btn-ghost" href="#kontakt">Stopite v stik</a>
+        <a class="btn btn-solid" href="#projekti" data-i18n="viewProjects">Ogled projektov</a>
+        <a class="btn btn-ghost" href="#kontakt" data-i18n="getInTouch">Stopite v stik</a>
       </div>
     </div>
   </section>
 
   <div class="stats">
     <div class="wrap stats-grid">
-      <div class="stat"><b>20</b><span>Let izkušenj</span></div>
-      <div class="stat"><b>150+</b><span>Projektov</span></div>
-      <div class="stat"><b>7</b><span>Strokovnjakov</span></div>
-      <div class="stat"><b>A+</b><span>Bonitetna ocena</span></div>
+      <div class="stat"><b>20</b><span data-i18n="stat0">Let izkušenj</span></div>
+      <div class="stat"><b>150+</b><span data-i18n="stat1">Projektov</span></div>
+      <div class="stat"><b>7</b><span data-i18n="stat2">Strokovnjakov</span></div>
+      <div class="stat"><b>A+</b><span data-i18n="stat3">Bonitetna ocena</span></div>
     </div>
   </div>
 
   <section id="projekti">
     <div class="wrap">
-      <p class="kicker">Izbrani projekti</p>
-      <h2>Prostor, ki govori zase</h2>
+      <p class="kicker" data-i18n="projectsKicker">Izbrani projekti</p>
+      <h2 data-i18n="projectsTitle">Prostor, ki govori zase</h2>
       <div class="grid-2">
       <button class="card" type="button" data-slug="hisa-v-gozdu">
         <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/01.jpg" alt="Hiša v gozdu" loading="lazy"></span>
@@ -395,38 +408,38 @@
 
   <section class="band" id="storitve">
     <div class="wrap">
-      <p class="kicker">Kaj delamo</p>
-      <h2>Celovite arhitekturne storitve</h2>
+      <p class="kicker" data-i18n="servicesKicker">Kaj delamo</p>
+      <h2 data-i18n="servicesTitle">Celovite arhitekturne storitve</h2>
       <div class="services">
         <article class="service">
           <p class="service-n">01</p>
-          <h3>Projektna dokumentacija</h3>
-          <p>IDZ, DGD in PZI za zahtevne in manj zahtevne objekte — od ideje do izvedbe.</p>
+          <h3 data-i18n="svcT0">Projektna dokumentacija</h3>
+          <p data-i18n="svcD0">IDZ, DGD in PZI za zahtevne in manj zahtevne objekte — od ideje do izvedbe.</p>
         </article>
         <article class="service">
           <p class="service-n">02</p>
-          <h3>Dokumentacija za OPPN</h3>
-          <p>Občinski podrobni prostorski načrti in pripadajoči elaborati.</p>
+          <h3 data-i18n="svcT1">Dokumentacija za OPPN</h3>
+          <p data-i18n="svcD1">Občinski podrobni prostorski načrti in pripadajoči elaborati.</p>
         </article>
         <article class="service">
           <p class="service-n">03</p>
-          <h3>Oblikovanje interiera</h3>
-          <p>Celostna notranja oprema stanovanjskih in poslovnih prostorov.</p>
+          <h3 data-i18n="svcT2">Oblikovanje interiera</h3>
+          <p data-i18n="svcD2">Celostna notranja oprema stanovanjskih in poslovnih prostorov.</p>
         </article>
         <article class="service">
           <p class="service-n">04</p>
-          <h3>Gradbena dovoljenja</h3>
-          <p>Vodenje postopka do pravnomočnega gradbenega dovoljenja.</p>
+          <h3 data-i18n="svcT3">Gradbena dovoljenja</h3>
+          <p data-i18n="svcD3">Vodenje postopka do pravnomočnega gradbenega dovoljenja.</p>
         </article>
         <article class="service">
           <p class="service-n">05</p>
-          <h3>Izvedbeni projekti</h3>
-          <p>Podrobna izvedbena dokumentacija za nemoteno delo na gradbišču.</p>
+          <h3 data-i18n="svcT4">Izvedbeni projekti</h3>
+          <p data-i18n="svcD4">Podrobna izvedbena dokumentacija za nemoteno delo na gradbišču.</p>
         </article>
         <article class="service">
           <p class="service-n">06</p>
-          <h3>Projektantski nadzor</h3>
-          <p>Nadzor nad izvedbo in dokumentacija za prevzem objekta.</p>
+          <h3 data-i18n="svcT5">Projektantski nadzor</h3>
+          <p data-i18n="svcD5">Nadzor nad izvedbo in dokumentacija za prevzem objekta.</p>
         </article></div>
     </div>
   </section>
@@ -434,10 +447,10 @@
   <section id="o-nas">
     <div class="wrap about">
       <div>
-        <p class="kicker">O nas</p>
-        <h2>Arhitektura z lokalnim značajem</h2>
-        <p>Fin Ars d.o.o. je arhitekturni biro, ki je nastal leta 2006 v Zagorju ob Savi. Vodji biroja sta <strong>Kristijan Čuk</strong> u.d.i.a., strokovni direktor, in <strong>Borut Dolar</strong>, poslovni direktor.</p>
-        <p>Ekipo sooblikujejo Urša Dirjec Meško, Irena Gorjup Gračner, Simon Škrbec, Dijana Subašič, Vladimir Mladenović in Špela Volaj.</p>
+        <p class="kicker" data-i18n="aboutKicker">O nas</p>
+        <h2 data-i18n="aboutTitle">Arhitektura z lokalnim značajem</h2>
+        <p data-i18n-html="aboutLead">Fin Ars d.o.o. je arhitekturni biro, ki je nastal leta 2006 v Zagorju ob Savi. Vodji biroja sta <strong>Kristijan Čuk</strong> u.d.i.a., strokovni direktor, in <strong>Borut Dolar</strong>, poslovni direktor.</p>
+        <p data-i18n="aboutTeam">Ekipo sooblikujejo Urša Dirjec Meško, Irena Gorjup Gračner, Simon Škrbec, Dijana Subašič, Vladimir Mladenović in Špela Volaj.</p>
       </div>
       <img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/brand/office.jpg" alt="Prostori biroja Fin Ars">
     </div>
@@ -446,9 +459,9 @@
   <section class="news" id="novice">
     <div class="wrap news">
       <div>
-        <p class="kicker">Novice</p>
-        <h2>Digitalna transformacija podjetja FIN ARS</h2>
-        <p>Naložbo sofinancirata Republika Slovenija in Evropska unija iz Evropskega sklada za regionalni razvoj. Sofinanciranje operacije: do 100.000 €.</p>
+        <p class="kicker" data-i18n="newsKicker">Novice</p>
+        <h2 data-i18n="newsTitle">Digitalna transformacija podjetja FIN ARS</h2>
+        <p data-i18n="newsBody">Naložbo sofinancirata Republika Slovenija in Evropska unija iz Evropskega sklada za regionalni razvoj. Sofinanciranje operacije: do 100.000 €.</p>
         <p><a href="https://www.eu-skladi.si/" target="_blank" rel="noreferrer">eu-skladi.si →</a></p>
       </div>
       <img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/brand/news.jpg" alt="EU kohezijska politika">
@@ -457,20 +470,20 @@
 
   <section id="kontakt">
     <div class="wrap">
-      <p class="kicker">Kontakt</p>
-      <h2>Pogovorimo se o vašem projektu</h2>
+      <p class="kicker" data-i18n="contactKicker">Kontakt</p>
+      <h2 data-i18n="contactTitle">Pogovorimo se o vašem projektu</h2>
       <div class="contact">
         <div>
-          <div class="block"><h3>Naslov</h3><p>Podvine 36<br>1410 Zagorje ob Savi</p></div>
-          <div class="block"><h3>Telefon</h3><p><a href="tel:+38641686959">+386 41 686 959</a><br><a href="tel:+38631370172">+386 31 370 172</a></p></div>
-          <div class="block"><h3>E-pošta</h3><p><a href="mailto:info@finars.si">info@finars.si</a><br><a href="mailto:kristijan.cuk@finars.si">kristijan.cuk@finars.si</a></p></div>
-          <div class="block"><h3>Podatki podjetja</h3><p>Davčna št.: SI 70790817<br>Matična št.: 2144921000</p></div>
+          <div class="block"><h3 data-i18n="addressLabel">Naslov</h3><p>Podvine 36<br>1410 Zagorje ob Savi</p></div>
+          <div class="block"><h3 data-i18n="phoneLabel">Telefon</h3><p><a href="tel:+38641686959">+386 41 686 959</a><br><a href="tel:+38631370172">+386 31 370 172</a></p></div>
+          <div class="block"><h3 data-i18n="emailLabel">E-pošta</h3><p><a href="mailto:info@finars.si">info@finars.si</a><br><a href="mailto:kristijan.cuk@finars.si">kristijan.cuk@finars.si</a></p></div>
+          <div class="block"><h3 data-i18n="companyLabel">Podatki podjetja</h3><p data-i18n-html="companyBody">Davčna št.: SI 70790817<br>Matična št.: 2144921000</p></div>
         </div>
         <form id="contact-form">
-          <div class="field"><label for="name">Ime in priimek</label><input id="name" name="name" required placeholder="Vaše ime"></div>
-          <div class="field"><label for="email">E-pošta</label><input id="email" name="email" type="email" required placeholder="vas@email.si"></div>
-          <div class="field"><label for="message">Sporočilo</label><textarea id="message" name="message" required placeholder="Opišite vaš projekt ali vprašanje..."></textarea></div>
-          <button class="btn btn-solid" type="submit">Pošlji sporočilo</button>
+          <div class="field"><label for="name" data-i18n="nameLabel">Ime in priimek</label><input id="name" name="name" required placeholder="Vaše ime" data-i18n-attr="namePh"></div>
+          <div class="field"><label for="email" data-i18n="emailField">E-pošta</label><input id="email" name="email" type="email" required placeholder="vas@email.si" data-i18n-attr="emailPh"></div>
+          <div class="field"><label for="message" data-i18n="messageLabel">Sporočilo</label><textarea id="message" name="message" required placeholder="Opišite vaš projekt ali vprašanje..." data-i18n-attr="messagePh"></textarea></div>
+          <button class="btn btn-solid" type="submit" data-i18n="send">Pošlji sporočilo</button>
         </form>
       </div>
     </div>
@@ -480,7 +493,7 @@
 <footer>
   <div class="wrap foot">
     <strong>Fin Ars d.o.o.</strong>
-    <span>© 2026 Center za arhitekturo · Zagorje ob Savi</span>
+    <span data-i18n="footer">© 2026 Center za arhitekturo · Zagorje ob Savi</span>
   </div>
 </footer>
 
@@ -513,10 +526,11 @@ function show(src, title) {
 
 document.querySelectorAll(".card").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const p = bySlug[btn.dataset.slug];
+    const raw = bySlug[btn.dataset.slug];
+    const p = localize(raw);
     document.getElementById("ptitle").textContent = p.title;
     document.getElementById("meta").textContent = p.year + " · " + p.location + " · " + p.category;
-    document.getElementById("authors").textContent = "Avtorji: " + p.authors;
+    document.getElementById("authors").textContent = ui[lang].authors + ": " + raw.authors;
     document.getElementById("summary").textContent = p.summary;
     thumbs.innerHTML = "";
     p.images.forEach((src) => {
@@ -539,7 +553,7 @@ menuBtn.addEventListener("click", () => {
   const open = mobile.style.display === "block";
   mobile.style.display = open ? "none" : "block";
   menuBtn.setAttribute("aria-expanded", String(!open));
-  menuBtn.setAttribute("aria-label", open ? "Odpri meni" : "Zapri meni");
+  menuBtn.setAttribute("aria-label", open ? ui[lang].menuOpen : ui[lang].menuClose);
   menuBtn.textContent = open ? "☰" : "×";
 });
 mobile.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
@@ -551,9 +565,54 @@ mobile.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
 document.getElementById("contact-form").addEventListener("submit", (e) => {
   e.preventDefault();
   const data = new FormData(e.currentTarget);
-  const body = "Ime: " + data.get("name") + "\nE-pošta: " + data.get("email") + "\n\n" + data.get("message");
-  location.href = "mailto:info@finars.si?subject=" + encodeURIComponent("Povpraševanje — Fin Ars") + "&body=" + encodeURIComponent(body);
+  const body = ui[lang].mailName + ": " + data.get("name") + "\n" + ui[lang].mailEmail + ": " + data.get("email") + "\n\n" + data.get("message");
+  location.href = "mailto:info@finars.si?subject=" + encodeURIComponent(ui[lang].mailSubject) + "&body=" + encodeURIComponent(body);
 });
+
+const enProjects = {"hisa-v-gozdu":{"title":"House in the woods","location":"Zasavje","category":"residential","summary":"A three-storey family house with a partly buried basement and garage. The ground floor is an open living space with a glazed west façade opening onto a green terrace and pergola. 150 m² plus 90 m² of basement."},"vila-arbos":{"title":"Villa Arbos","location":"Slovenia","category":"residential","summary":"A single-storey villa in natural materials with a timber structure. Living spaces face south and west, under a mono-pitch roof with active solar systems. 80 m²."},"pasivna-hisa":{"title":"Passive timber house","location":"Slovenia","category":"residential","summary":"An energy-efficient timber family house built to a high standard of thermal protection."},"mladinski-center-trbovlje":{"title":"Youth centre and hotel, Trbovlje","location":"Trbovlje","category":"public","summary":"A partly buried building linking Revolution Square and 1 June Street. The walkable roof becomes a new public space. A youth centre with a hall and a hotel with 24 beds. 700 m², basement, ground and first floor."},"parkirna-hisa-sallaumines":{"title":"Sallaumines car park","location":"Zagorje ob Savi","category":"public","summary":"A two-storey car park on a triangular plot between the Sallaumines pedestrian zone, Obrtniška cesta and a residential block. Separate access to the basement and the ground floor."},"dvorana-bonifika":{"title":"Bonifika sports hall","location":"Koper","category":"sport","summary":"Competition design for a multi-purpose sports hall at Bonifika."},"hotel-tripoli":{"title":"Hotel and rehabilitation centre, Tripoli","location":"Tripoli","category":"public","summary":"A hotel and rehabilitation complex with a clear spatial hierarchy and open terraces."},"bazen-libija":{"title":"Olympic pool and wellness, Libya","location":"Libya","category":"sport","summary":"An indoor Olympic swimming complex with a wellness programme."},"dvorana-tripoli":{"title":"Multifunctional sports hall, Tripoli","location":"Tripoli","category":"sport","summary":"A multi-purpose sports hall with a swimming pool."},"mercator-novo-mesto":{"title":"Mercator shopping centre, Novo mesto","location":"Novo mesto","category":"commercial","summary":"Design of a shopping centre with a clear traffic layout and a public edge."},"objekt-mic":{"title":"MIC building","location":"Slovenia","category":"commercial","summary":"A commercial building with a strong façade rhythm and daylight drawn deep into the plan."},"urbana-dnevna-soba":{"title":"An urban living room in the countryside","location":"Slovenia","category":"residential","summary":"A house that combines private living with an open relationship to the landscape."},"dimnikcobau":{"title":"Dimnikcobau offices","location":"Slovenia","category":"interior","summary":"Interior design and refurbishment of office space."},"naselje-podcetrtek":{"title":"Podčetrtek housing estate","location":"Podčetrtek","category":"residential","summary":"Urban and architectural design of a housing estate."},"sola-trbovlje":{"title":"Renovation of Revirski borci primary school","location":"Trbovlje","category":"public","summary":"Refurbishment of a primary school, with better daylight and clearer circulation."},"ptic-portoroz":{"title":"PTIC student residence, Portorož","location":"Portorož","category":"public","summary":"Refurbishment of the PTIC student residence and the interiors of the rooms."},"sportna-loska-dolina":{"title":"Loška dolina sports hall","location":"Loška dolina","category":"sport","summary":"Competition design for a sports hall in Loška dolina."},"retail-kragujevac":{"title":"Kragujevac retail centre","location":"Kragujevac","category":"commercial","summary":"A shopping centre with clear vertical circulation and a public square."},"sveta-gora":{"title":"Funeral chapel, Zasavska Sveta gora","location":"Zasavje","category":"public","summary":"A restrained public building at Zasavska Sveta gora."},"blok-aurora":{"title":"Aurora apartment block","location":"Slovenia","category":"residential","summary":"The Aurora residential block."},"bazen-trbovlje":{"title":"Trbovlje swimming pool","location":"Trbovlje","category":"sport","summary":"Design of a swimming complex in Trbovlje."},"pilon-trbovlje":{"title":"Pilon, Trbovlje","location":"Trbovlje","category":"commercial","summary":"The Pilon commercial building in Trbovlje."}};
+const ui = {"sl":{"nav0":"Projekti","nav1":"Storitve","nav2":"O nas","nav3":"Kontakt","langLabel":"Jezik","menuOpen":"Odpri meni","menuClose":"Zapri meni","heroKicker":"Arhitekturni biro · od 2006","heroTitle":"Oblikujemo <em>prostore</em> z namenom","lede":"Center za arhitekturo, gradbeno projektiranje in celovite storitve — od ideje do izvedbe.","viewProjects":"Ogled projektov","getInTouch":"Stopite v stik","stat0":"Let izkušenj","stat1":"Projektov","stat2":"Strokovnjakov","stat3":"Bonitetna ocena","projectsKicker":"Izbrani projekti","projectsTitle":"Prostor, ki govori zase","servicesKicker":"Kaj delamo","servicesTitle":"Celovite arhitekturne storitve","svcT0":"Projektna dokumentacija","svcD0":"IDZ, DGD in PZI za zahtevne in manj zahtevne objekte — od ideje do izvedbe.","svcT1":"Dokumentacija za OPPN","svcD1":"Občinski podrobni prostorski načrti in pripadajoči elaborati.","svcT2":"Oblikovanje interiera","svcD2":"Celostna notranja oprema stanovanjskih in poslovnih prostorov.","svcT3":"Gradbena dovoljenja","svcD3":"Vodenje postopka do pravnomočnega gradbenega dovoljenja.","svcT4":"Izvedbeni projekti","svcD4":"Podrobna izvedbena dokumentacija za nemoteno delo na gradbišču.","svcT5":"Projektantski nadzor","svcD5":"Nadzor nad izvedbo in dokumentacija za prevzem objekta.","aboutKicker":"O nas","aboutTitle":"Arhitektura z lokalnim značajem","aboutLead":"Fin Ars d.o.o. je arhitekturni biro, ki je nastal leta 2006 v Zagorju ob Savi. Vodji biroja sta <strong>Kristijan Čuk</strong> u.d.i.a., strokovni direktor, in <strong>Borut Dolar</strong>, poslovni direktor.","aboutTeam":"Ekipo sooblikujejo Urša Dirjec Meško, Irena Gorjup Gračner, Simon Škrbec, Dijana Subašič, Vladimir Mladenović in Špela Volaj.","newsKicker":"Novice","newsTitle":"Digitalna transformacija podjetja FIN ARS","newsBody":"Naložbo sofinancirata Republika Slovenija in Evropska unija iz Evropskega sklada za regionalni razvoj. Sofinanciranje operacije: do 100.000 €.","contactKicker":"Kontakt","contactTitle":"Pogovorimo se o vašem projektu","addressLabel":"Naslov","phoneLabel":"Telefon","emailLabel":"E-pošta","companyLabel":"Podatki podjetja","companyBody":"Davčna št.: SI 70790817<br>Matična št.: 2144921000","nameLabel":"Ime in priimek","namePh":"Vaše ime","emailField":"E-pošta","emailPh":"vas@email.si","messageLabel":"Sporočilo","messagePh":"Opišite vaš projekt ali vprašanje...","send":"Pošlji sporočilo","authors":"Avtorji","footer":"© 2026 Center za arhitekturo · Zagorje ob Savi","mailName":"Ime","mailEmail":"E-pošta","mailSubject":"Povpraševanje — Fin Ars"},"en":{"nav0":"Projects","nav1":"Services","nav2":"About","nav3":"Contact","langLabel":"Language","menuOpen":"Open menu","menuClose":"Close menu","heroKicker":"Architecture studio · since 2006","heroTitle":"We shape <em>spaces</em> with purpose","lede":"A studio for architecture, building design and complete services — from the first idea to completion.","viewProjects":"View projects","getInTouch":"Get in touch","stat0":"Years of practice","stat1":"Projects","stat2":"Specialists","stat3":"Credit rating","projectsKicker":"Selected work","projectsTitle":"Space that speaks for itself","servicesKicker":"What we do","servicesTitle":"A complete architectural practice","svcT0":"Project documentation","svcD0":"Concept, permit and construction drawings for demanding and simpler buildings — from the first idea to site.","svcT1":"OPPN documentation","svcD1":"Municipal detailed spatial plans and the studies that accompany them.","svcT2":"Interior design","svcD2":"Complete interiors for homes and workplaces.","svcT3":"Building permits","svcD3":"Managing the process through to a final building permit.","svcT4":"Construction drawings","svcD4":"Detailed documentation so work on site can proceed without interruption.","svcT5":"Design supervision","svcD5":"Supervision of construction and the documents needed to hand the building over.","aboutKicker":"About","aboutTitle":"Architecture with a local character","aboutLead":"Fin Ars d.o.o. is an architecture studio founded in 2006 in Zagorje ob Savi. It is led by <strong>Kristijan Čuk</strong>, M.Arch., design director, and <strong>Borut Dolar</strong>, managing director.","aboutTeam":"The team includes Urša Dirjec Meško, Irena Gorjup Gračner, Simon Škrbec, Dijana Subašič, Vladimir Mladenović and Špela Volaj.","newsKicker":"News","newsTitle":"Digital transformation of FIN ARS","newsBody":"The investment is co-financed by the Republic of Slovenia and the European Union from the European Regional Development Fund. Co-financing of the operation: up to €100,000.","contactKicker":"Contact","contactTitle":"Let’s talk about your project","addressLabel":"Address","phoneLabel":"Phone","emailLabel":"Email","companyLabel":"Company details","companyBody":"Tax no.: SI 70790817<br>Reg. no.: 2144921000","nameLabel":"Full name","namePh":"Your name","emailField":"Email","emailPh":"you@email.com","messageLabel":"Message","messagePh":"Describe your project or question...","send":"Send message","authors":"Authors","footer":"© 2026 Centre for architecture · Zagorje ob Savi","mailName":"Name","mailEmail":"Email","mailSubject":"Enquiry — Fin Ars"}};
+let lang = "sl";
+function localize(p) {
+  if (lang !== "en" || !enProjects[p.slug]) return p;
+  return Object.assign({}, p, enProjects[p.slug]);
+}
+function paintCards() {
+  document.querySelectorAll(".card").forEach((btn) => {
+    const raw = bySlug[btn.dataset.slug];
+    const p = localize(raw);
+    const title = btn.querySelector(".card-title");
+    const sub = btn.querySelector(".card-sub");
+    const img = btn.querySelector("img");
+    if (title) title.textContent = p.title;
+    if (sub) sub.textContent = p.location + " · " + p.category;
+    if (img) img.alt = p.title;
+  });
+}
+function applyLang(next) {
+  lang = next === "en" ? "en" : "sl";
+  document.documentElement.lang = lang;
+  const pack = ui[lang];
+  document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = pack[el.dataset.i18n]; });
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => { el.innerHTML = pack[el.dataset.i18nHtml]; });
+  document.querySelectorAll("[data-i18n-attr]").forEach((el) => { el.setAttribute("placeholder", pack[el.dataset.i18nAttr]); });
+  document.querySelectorAll("[data-set-lang]").forEach((btn) => {
+    btn.setAttribute("aria-pressed", btn.dataset.setLang === lang ? "true" : "false");
+  });
+  const group = document.querySelector(".langs");
+  if (group) group.setAttribute("aria-label", pack.langLabel);
+  const menuOpen = mobile.style.display === "block";
+  menuBtn.setAttribute("aria-label", menuOpen ? pack.menuClose : pack.menuOpen);
+  paintCards();
+  try { localStorage.setItem("finars-lang", lang); } catch (e) {}
+}
+document.querySelectorAll("[data-set-lang]").forEach((btn) => {
+  btn.addEventListener("click", () => applyLang(btn.dataset.setLang));
+});
+try {
+  const saved = localStorage.getItem("finars-lang");
+  if (saved === "en") applyLang("en");
+} catch (e) {}
+
 </script>
 </body>
 </html>
