@@ -5,564 +5,943 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fin Ars — arhitekturni biro</title>
 <meta name="description" content="Fin Ars d.o.o. — center za arhitekturo, gradbeno projektiranje in celovite storitve. Zagorje ob Savi.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0c0c0b;
-    --fg: #f2efe8;
-    --card: #141413;
-    --muted: #9a968c;
-    --line: rgb(242 239 232 / 0.1);
-    --soft: #1c1c1a;
-    --display: "Cormorant Garamond", Georgia, serif;
-    --sans: "Outfit", system-ui, sans-serif;
+:root {
+  --color-bg: #0c0c0b;
+  --color-fg: #f2efe8;
+  --color-card: #141413;
+  --color-muted: #9a968c;
+  --color-line: rgb(242 239 232 / 0.1);
+  --color-soft: #1c1c1a;
+  --color-ink: #11110f;
+  --color-stone: #cfc8ba;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --radius-card: 14px;
+}
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: var(--sans);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
     font-weight: 300;
     -webkit-font-smoothing: antialiased;
   }
-  img { max-width: 100%; display: block; }
-  a { color: inherit; }
-  button, a { cursor: pointer; }
-  .wrap { width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
-  header {
-    position: fixed; inset: 0 0 auto 0; z-index: 20;
-    height: 64px; display: flex; align-items: center;
-    border-bottom: 1px solid var(--line);
-    background: rgb(12 12 11 / 0.82);
-    backdrop-filter: blur(14px);
+
+  img {
+    max-width: 100%;
+    display: block;
   }
-  .bar { display: flex; align-items: center; justify-content: space-between; width: min(1120px, calc(100% - 2rem)); margin-inline: auto; }
-  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .mark {
-    width: 36px; height: 36px; border-radius: 8px;
-    background: var(--fg); color: #11110f;
-    display: grid; place-items: center;
-    font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+
+  a {
+    color: inherit;
   }
-  .brand-name { font-family: var(--display); font-size: 22px; font-weight: 500; }
-  nav { display: flex; gap: 28px; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 400; }
-  nav a:hover { color: var(--fg); }
+
+.wrap {
+  width: min(1120px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 20;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-line);
+  background: rgb(12 12 11 / 0.82);
+  backdrop-filter: blur(14px);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1120px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--color-fg);
+  color: var(--color-ink);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.desk-nav {
+  display: flex;
+  gap: 28px;
+}
+
+.desk-nav a {
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.desk-nav a:hover {
+  color: var(--color-fg);
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: 0;
+  color: var(--color-fg);
+  width: 44px;
+  height: 44px;
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  z-index: 19;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-line);
+  padding: 8px 16px 16px;
+}
+
+.mobile-nav a {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  color: var(--color-muted);
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.bg-anim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.bg-slide {
+  position: absolute;
+  inset: -6%;
+  width: 112%;
+  height: 112%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 1.6s ease;
+  filter: saturate(0.72) contrast(1.05);
+}
+
+.bg-slide.is-on {
+  opacity: 0.46;
+  animation: ken 18s ease-in-out infinite alternate;
+}
+
+.bg-grid {
+  position: absolute;
+  inset: -50% 0 auto;
+  height: 160%;
+  background-image:
+    linear-gradient(rgb(232 226 214 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(232 226 214 / 0.07) 1px, transparent 1px);
+  background-size: 84px 84px;
+  transform: perspective(520px) rotateX(62deg);
+  transform-origin: center top;
+  animation: grid-drift 28s linear infinite;
+  mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent);
+}
+
+.bg-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.5;
+}
+
+.bg-glow.a {
+  width: 46vw;
+  height: 46vw;
+  left: -10%;
+  top: 8%;
+  background: radial-gradient(circle, rgb(207 200 186 / 0.38), transparent 68%);
+  animation: glow-a 24s ease-in-out infinite alternate;
+}
+
+.bg-glow.b {
+  width: 38vw;
+  height: 38vw;
+  right: -8%;
+  top: 42%;
+  background: radial-gradient(circle, rgb(92 88 80 / 0.5), transparent 70%);
+  animation: glow-b 30s ease-in-out infinite alternate;
+}
+
+.bg-glow.c {
+  width: 30vw;
+  height: 30vw;
+  left: 32%;
+  bottom: -10%;
+  background: radial-gradient(circle, rgb(232 226 214 / 0.18), transparent 70%);
+  animation: glow-c 20s ease-in-out infinite alternate;
+}
+
+.bg-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgb(12 12 11 / 0.28),
+    rgb(12 12 11 / 0.55) 40%,
+    rgb(12 12 11 / 0.82)
+  );
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 0 84px; }
+}
+
+@keyframes glow-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(10%, 8%, 0) scale(1.18); }
+}
+
+@keyframes glow-b {
+  from { transform: translate3d(0, 0, 0) scale(1.08); }
+  to { transform: translate3d(-12%, -8%, 0) scale(0.88); }
+}
+
+@keyframes glow-c {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-8%, -12%, 0) scale(1.22); }
+}
+
+@keyframes ken {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.1) translate3d(-2%, -1.4%, 0); }
+}
+
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-end;
+  padding: 96px 0 72px;
+}
+
+.kicker {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-fg);
+  margin: 0 0 16px;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(46px, 8vw, 78px);
+  max-width: 14ch;
+}
+
+h1 em {
+  font-style: italic;
+}
+
+.lede {
+  max-width: 36rem;
+  margin: 22px 0 0;
+  color: var(--color-muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.btn-solid {
+  background: var(--color-fg);
+  color: var(--color-ink);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-fg);
+  border-color: var(--color-line);
+}
+
+.slide-count {
+  margin: 28px 0 0;
+  color: var(--color-muted);
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stats {
+  border-block: 1px solid var(--color-line);
+  background: rgb(12 12 11 / 0.55);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 36px 0;
+  text-align: center;
+}
+
+.stat b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 500;
+}
+
+.stat span {
+  display: block;
+  margin-top: 8px;
+  color: var(--color-muted);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.block-section {
+  padding: 88px 0;
+  scroll-margin-top: 76px;
+}
+
+h2 {
+  font-size: clamp(36px, 5vw, 52px);
+  margin-top: 10px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+}
+
+.card-media {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-card);
+  aspect-ratio: 16 / 10;
+}
+
+.card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.1s ease, transform 0.6s ease;
+}
+
+.card-media img.is-on {
+  opacity: 1;
+}
+
+.card:hover .card-media img.is-on {
+  transform: scale(1.04);
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  align-items: baseline;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.card-year,
+.card-sub {
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.card-sub {
+  display: block;
+  margin-top: 4px;
+}
+
+.band {
+  background: rgb(28 28 26 / 0.86);
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.service {
+  border: 1px solid var(--color-line);
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  padding: 24px;
+}
+
+.service:hover {
+  border-color: rgb(207 200 186 / 0.4);
+}
+
+.service-n {
+  font-family: var(--font-display);
+  margin: 0;
+  color: var(--color-fg);
+}
+
+.service h3 {
+  margin: 12px 0 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.service p {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.about {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.about p {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.about strong {
+  color: var(--color-fg);
+  font-weight: 500;
+}
+
+.about img,
+.news img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+.news {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 36px;
+  align-items: center;
+  border-block: 1px solid var(--color-line);
+  background: rgb(28 28 26 / 0.72);
+  padding: 64px 0;
+  scroll-margin-top: 76px;
+}
+
+.news .wrap {
+  display: contents;
+}
+
+.news-copy,
+.news-photo {
+  width: min(1120px, calc(100% - 2rem));
+}
+
+.news-layout {
+  width: min(1120px, calc(100% - 2rem));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.news p {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.news a {
+  color: var(--color-fg);
+}
+
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 40px;
+}
+
+.contact h3 {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.contact p {
+  margin: 8px 0 0;
+  line-height: 1.6;
+}
+
+.block {
+  margin-bottom: 28px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+input,
+textarea {
+  width: 100%;
+  background: var(--color-soft);
+  color: var(--color-fg);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 14px;
+  font: inherit;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--color-stone);
+  border-color: transparent;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+button.btn {
+  width: 100%;
+  border: 0;
+  font: inherit;
+  font-weight: 500;
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  background: rgb(12 12 11 / 0.72);
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 28px 0;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.foot strong {
+  color: var(--color-fg);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(0 0 0 / 0.72);
+}
+
+.dlg {
+  width: min(920px, 100%);
+  max-height: min(92dvh, 900px);
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  background: #121211;
+}
+
+.dlg-top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--color-line);
+  background: transparent;
+  color: var(--color-fg);
+  font-size: 20px;
+}
+
+.hero-shot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #000;
+}
+
+.thumbs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.thumbs button {
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0.7;
+}
+
+.thumbs button[aria-current="true"] {
+  opacity: 1;
+  outline: 2px solid var(--color-stone);
+}
+
+.thumbs img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.dlg h2 {
+  font-size: clamp(32px, 4vw, 46px);
+  margin-top: 8px;
+}
+
+.dlg .meta {
+  color: var(--color-muted);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin: 18px 0 0;
+}
+
+.dlg .authors,
+.dlg .summary {
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.bar-end {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.langs {
+  display: flex;
+}
+
+.langs button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-muted);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+}
+
+.langs button[aria-pressed="true"] {
+  color: var(--color-fg);
+}
+
+@media (max-width: 860px) {
+  .desk-nav {
+    display: none;
+  }
+
   .menu-btn {
-    display: none; background: none; border: 0; color: var(--fg);
-    width: 44px; height: 44px; font-size: 22px;
+    display: grid;
+    place-items: center;
   }
-  .mobile-nav {
-    display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 19;
-    background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px 16px 16px;
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
   }
-  .mobile-nav a { display: flex; min-height: 48px; align-items: center; color: var(--muted); text-decoration: none; font-size: 18px; }
-  .hero { position: relative; min-height: 100dvh; display: flex; align-items: flex-end; padding: 96px 0 72px; overflow: hidden; }
-  .hero-bg {
-    position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover; opacity: 0.42;
-    animation: hero-drift 32s ease-in-out infinite alternate;
+
+  .grid-2,
+  .grid-3,
+  .services,
+  .about,
+  .news-layout,
+  .contact {
+    grid-template-columns: 1fr;
   }
-  .bg-anim {
-    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+
+  .thumbs {
+    grid-template-columns: repeat(4, 1fr);
   }
-  .bg-grid {
-    position: absolute; inset: -50% 0 auto; height: 160%;
-    background-image:
-      linear-gradient(rgb(232 226 214 / 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(232 226 214 / 0.07) 1px, transparent 1px);
-    background-size: 84px 84px;
-    transform: perspective(520px) rotateX(62deg);
-    transform-origin: center top;
-    animation: grid-drift 28s linear infinite;
-    mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 70%, transparent);
+
+  .block-section {
+    padding: 64px 0;
   }
-  .bg-glow {
-    position: absolute; border-radius: 50%; filter: blur(72px); opacity: 0.55;
+
+  .foot {
+    flex-direction: column;
+    text-align: center;
   }
-  .bg-glow.a {
-    width: 46vw; height: 46vw; left: -10%; top: 8%;
-    background: radial-gradient(circle, rgb(207 200 186 / 0.42), transparent 68%);
-    animation: glow-a 24s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-  .bg-glow.b {
-    width: 38vw; height: 38vw; right: -8%; top: 42%;
-    background: radial-gradient(circle, rgb(92 88 80 / 0.55), transparent 70%);
-    animation: glow-b 30s ease-in-out infinite alternate;
+
+  .bg-slide,
+  .bg-grid,
+  .bg-glow,
+  .card-media img {
+    animation: none;
+    transition: none;
   }
-  .bg-glow.c {
-    width: 30vw; height: 30vw; left: 32%; bottom: -10%;
-    background: radial-gradient(circle, rgb(232 226 214 / 0.22), transparent 70%);
-    animation: glow-c 20s ease-in-out infinite alternate;
+
+  .bg-slide.is-on {
+    transform: none;
   }
-  main, footer { position: relative; z-index: 1; }
-  @keyframes grid-drift {
-    from { background-position: 0 0; }
-    to { background-position: 0 84px; }
-  }
-  @keyframes glow-a {
-    from { transform: translate3d(0, 0, 0) scale(1); }
-    to { transform: translate3d(10%, 8%, 0) scale(1.18); }
-  }
-  @keyframes glow-b {
-    from { transform: translate3d(0, 0, 0) scale(1.08); }
-    to { transform: translate3d(-12%, -8%, 0) scale(0.88); }
-  }
-  @keyframes glow-c {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(-8%, -12%, 0) scale(1.22); }
-  }
-  @keyframes hero-drift {
-    from { transform: scale(1) translate3d(0, 0, 0); }
-    to { transform: scale(1.08) translate3d(-2.2%, -1.6%, 0); }
-  }
-  .hero-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(12 12 11 / 0.35), rgb(12 12 11 / 0.72) 55%, var(--bg)); }
-  .hero-copy { position: relative; }
-  .kicker { letter-spacing: 0.18em; text-transform: uppercase; font-size: 12px; font-weight: 500; color: var(--fg); margin: 0 0 16px; }
-  h1, h2 { font-family: var(--display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; margin: 0; }
-  h1 { font-size: clamp(46px, 8vw, 78px); max-width: 14ch; }
-  h1 em { font-style: italic; }
-  .lede { max-width: 36rem; margin: 22px 0 0; color: var(--muted); font-size: 18px; line-height: 1.6; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-height: 48px; padding: 0 22px; border-radius: 10px;
-    text-decoration: none; font-size: 15px; font-weight: 500; border: 1px solid transparent;
-  }
-  .btn-solid { background: var(--fg); color: #11110f; }
-  .btn-ghost { background: transparent; color: var(--fg); border-color: var(--line); }
-  .stats { border-block: 1px solid var(--line); }
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 36px 0; text-align: center; }
-  .stat b { display: block; font-family: var(--display); font-size: clamp(36px, 5vw, 52px); font-weight: 500; }
-  .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
-  section { padding: 88px 0; }
-  h2 { font-size: clamp(36px, 5vw, 52px); margin-top: 10px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
-  .card {
-    display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left;
-  }
-  .card-media { display: block; overflow: hidden; border-radius: 14px; background: var(--card); }
-  .card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; transition: transform 0.5s ease; }
-  .card:hover img { transform: scale(1.03); }
-  .card-meta { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; align-items: baseline; }
-  .card-title { font-family: var(--display); font-size: 22px; font-weight: 500; line-height: 1.2; }
-  .card-year, .card-sub { color: var(--muted); font-size: 14px; }
-  .card-sub { display: block; margin-top: 4px; }
-  .band { background: var(--soft); }
-  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 40px; }
-  .service { border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 24px; }
-  .service:hover { border-color: rgb(207 200 186 / 0.4); }
-  .service-n { font-family: var(--display); margin: 0; color: var(--fg); }
-  .service h3 { margin: 12px 0 0; font-size: 18px; font-weight: 500; }
-  .service p { margin: 8px 0 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
-  .about { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
-  .about p { color: var(--muted); line-height: 1.7; }
-  .about strong { color: var(--fg); font-weight: 500; }
-  .about img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 14px; }
-  .news { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 36px; align-items: center; border-block: 1px solid var(--line); background: var(--soft); }
-  .news p { color: var(--muted); line-height: 1.7; }
-  .news a { color: var(--fg); }
-  .news img { width: 100%; border-radius: 12px; }
-  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 40px; }
-  .contact h3 { margin: 0; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--muted); }
-  .contact p { margin: 8px 0 0; line-height: 1.6; }
-  .block { margin-bottom: 28px; }
-  label { display: block; font-size: 14px; margin-bottom: 8px; font-weight: 400; }
-  input, textarea {
-    width: 100%; background: var(--soft); color: var(--fg);
-    border: 1px solid var(--line); border-radius: 10px;
-    padding: 14px 14px; font: inherit; font-size: 15px;
-  }
-  textarea { min-height: 140px; resize: vertical; }
-  input:focus, textarea:focus { outline: 2px solid #cfc8ba; border-color: transparent; }
-  .field { margin-bottom: 18px; }
-  button.btn { width: 100%; border: 0; font: inherit; font-weight: 500; }
-  footer { border-top: 1px solid var(--line); }
-  .foot { display: flex; justify-content: space-between; gap: 12px; padding: 28px 0; color: var(--muted); font-size: 14px; }
-  .foot strong { color: var(--fg); font-family: var(--display); font-size: 18px; font-weight: 500; }
-  dialog {
-    width: min(920px, calc(100% - 1.5rem));
-    max-height: min(92dvh, 900px);
-    padding: 0; border: 1px solid var(--line); border-radius: 16px;
-    background: #121211; color: var(--fg);
-  }
-  dialog::backdrop { background: rgb(0 0 0 / 0.72); }
-  .dlg { padding: 16px; overflow: auto; max-height: min(92dvh, 900px); }
-  .dlg-top { display: flex; justify-content: flex-end; }
-  .close {
-    width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line);
-    background: transparent; color: var(--fg); font-size: 20px;
-  }
-  .hero-shot { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; background: #000; }
-  .thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 8px; }
-  .thumbs button { padding: 0; border: 0; background: none; border-radius: 8px; overflow: hidden; opacity: 0.7; }
-  .thumbs button[aria-current="true"] { opacity: 1; outline: 2px solid #cfc8ba; }
-  .thumbs img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
-  .dlg h2 { font-size: clamp(32px, 4vw, 46px); margin-top: 8px; }
-  .dlg .meta { color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-size: 12px; margin: 18px 0 0; }
-  .dlg .authors, .dlg .summary { color: var(--muted); line-height: 1.7; }
-  .bar-end { display: flex; align-items: center; gap: 4px; }
-  .langs { display: flex; }
-  .langs button {
-    min-width: 44px; min-height: 44px; padding: 0; border: 0; background: none;
-    color: var(--muted); font: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.16em;
-  }
-  .langs button[aria-pressed="true"] { color: var(--fg); }
-  @media (max-width: 860px) {
-    nav { display: none; }
-    .menu-btn { display: grid; place-items: center; }
-    .stats-grid, .grid-2, .grid-3, .services, .about, .news, .contact { grid-template-columns: 1fr; }
-    .stats-grid { grid-template-columns: 1fr 1fr; }
-    .thumbs { grid-template-columns: repeat(4, 1fr); }
-    section { padding: 64px 0; }
-    .foot { flex-direction: column; text-align: center; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .card img { transition: none; }
-    .bg-grid, .bg-glow, .hero-bg { animation: none; }
-  }
+}
+
 </style>
 </head>
 <body>
-<div class="bg-anim" aria-hidden="true">
+<div class="bg-anim" id="bg" aria-hidden="true">
   <div class="bg-glow a"></div>
   <div class="bg-glow b"></div>
   <div class="bg-glow c"></div>
   <div class="bg-grid"></div>
+  <div class="bg-veil"></div>
 </div>
-<header>
+<header class="site-header">
   <div class="bar">
     <a class="brand" href="#top"><span class="mark">FA</span><span class="brand-name">Fin Ars</span></a>
     <div class="bar-end">
-    <nav>
-      <a href="#projekti" data-i18n="nav0">Projekti</a>
-      <a href="#storitve" data-i18n="nav1">Storitve</a>
-      <a href="#o-nas" data-i18n="nav2">O nas</a>
-      <a href="#kontakt" data-i18n="nav3">Kontakt</a>
-    </nav>
-    <div class="langs" role="group" aria-label="Jezik">
-      <button type="button" data-set-lang="sl" aria-pressed="true">SL</button>
-      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
-    </div>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Odpri meni">☰</button>
+      <nav class="desk-nav">
+        <a href="#projekti" data-i18n="nav0">Projekti</a>
+        <a href="#storitve" data-i18n="nav1">Storitve</a>
+        <a href="#o-nas" data-i18n="nav2">O nas</a>
+        <a href="#kontakt" data-i18n="nav3">Kontakt</a>
+      </nav>
+      <div class="langs" role="group" aria-label="Jezik">
+        <button type="button" data-set-lang="sl" aria-pressed="true">SL</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-label="Odpri meni">☰</button>
     </div>
   </div>
 </header>
-<div class="mobile-nav" id="mobile-nav">
+<div class="mobile-nav" id="mobile-nav" hidden>
   <a href="#projekti" data-i18n="nav0">Projekti</a>
   <a href="#storitve" data-i18n="nav1">Storitve</a>
   <a href="#o-nas" data-i18n="nav2">O nas</a>
   <a href="#kontakt" data-i18n="nav3">Kontakt</a>
 </div>
-
 <main id="top">
   <section class="hero">
-    <img class="hero-bg" src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/01.jpg" alt="">
-    <div class="hero-shade"></div>
-    <div class="wrap hero-copy">
-      <p class="kicker" data-i18n="heroKicker">Arhitekturni biro · od 2006</p>
-      <h1 data-i18n-html="heroTitle">Oblikujemo <em>prostore</em> z namenom</h1>
-      <p class="lede" data-i18n="lede">Center za arhitekturo, gradbeno projektiranje in celovite storitve — od ideje do izvedbe.</p>
+    <div class="wrap">
+      <p class="kicker" data-i18n="heroKicker"></p>
+      <h1 data-i18n-html="heroTitle"></h1>
+      <p class="lede" data-i18n="lede"></p>
       <div class="actions">
-        <a class="btn btn-solid" href="#projekti" data-i18n="viewProjects">Ogled projektov</a>
-        <a class="btn btn-ghost" href="#kontakt" data-i18n="getInTouch">Stopite v stik</a>
+        <a class="btn btn-solid" href="#projekti" data-i18n="viewProjects"></a>
+        <a class="btn btn-ghost" href="#kontakt" data-i18n="getInTouch"></a>
       </div>
+      <p class="slide-count" id="slide-count">01 / 07</p>
     </div>
   </section>
-
   <div class="stats">
     <div class="wrap stats-grid">
-      <div class="stat"><b>20</b><span data-i18n="stat0">Let izkušenj</span></div>
-      <div class="stat"><b>150+</b><span data-i18n="stat1">Projektov</span></div>
-      <div class="stat"><b>7</b><span data-i18n="stat2">Strokovnjakov</span></div>
-      <div class="stat"><b>A+</b><span data-i18n="stat3">Bonitetna ocena</span></div>
+      <div class="stat"><b>20</b><span data-i18n="stat0"></span></div>
+      <div class="stat"><b>150+</b><span data-i18n="stat1"></span></div>
+      <div class="stat"><b>7</b><span data-i18n="stat2"></span></div>
+      <div class="stat"><b>A+</b><span data-i18n="stat3"></span></div>
     </div>
   </div>
-
-  <section id="projekti">
+  <section class="block-section" id="projekti">
     <div class="wrap">
-      <p class="kicker" data-i18n="projectsKicker">Izbrani projekti</p>
-      <h2 data-i18n="projectsTitle">Prostor, ki govori zase</h2>
-      <div class="grid-2">
-      <button class="card" type="button" data-slug="hisa-v-gozdu">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/01.jpg" alt="Hiša v gozdu" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Hiša v gozdu</span>
-          <span class="card-year">2013</span>
-        </span>
-        <span class="card-sub">Zasavje · stanovanjsko</span>
-      </button>
-      <button class="card" type="button" data-slug="vila-arbos">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/vila-arbos/01.jpg" alt="Vila Arbos" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Vila Arbos</span>
-          <span class="card-year">2011</span>
-        </span>
-        <span class="card-sub">Slovenija · stanovanjsko</span>
-      </button>
-      <button class="card" type="button" data-slug="pasivna-hisa">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pasivna-hisa/01.jpg" alt="Pasivna lesena hiša" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Pasivna lesena hiša</span>
-          <span class="card-year">2011</span>
-        </span>
-        <span class="card-sub">Slovenija · stanovanjsko</span>
-      </button>
-      <button class="card" type="button" data-slug="mladinski-center-trbovlje">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/01.jpg" alt="Mladinski center in hotel Trbovlje" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Mladinski center in hotel Trbovlje</span>
-          <span class="card-year">2011</span>
-        </span>
-        <span class="card-sub">Trbovlje · javno</span>
-      </button>
-      <button class="card" type="button" data-slug="parkirna-hisa-sallaumines">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/parkirna-hisa-sallaumines/01.jpg" alt="Parkirna hiša Sallaumines" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Parkirna hiša Sallaumines</span>
-          <span class="card-year">2016</span>
-        </span>
-        <span class="card-sub">Zagorje ob Savi · javno</span>
-      </button>
-      <button class="card" type="button" data-slug="dvorana-bonifika">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-bonifika/01.jpg" alt="Športna dvorana Bonifika" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Športna dvorana Bonifika</span>
-          <span class="card-year">2012</span>
-        </span>
-        <span class="card-sub">Koper · šport</span>
-      </button>
-      <button class="card" type="button" data-slug="hotel-tripoli">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hotel-tripoli/01.jpg" alt="Hotelski in rehabilitacijski center Tripoli" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Hotelski in rehabilitacijski center Tripoli</span>
-          <span class="card-year">2012</span>
-        </span>
-        <span class="card-sub">Tripoli · javno</span>
-      </button></div>
-      <div class="grid-3">
-      <button class="card" type="button" data-slug="bazen-libija">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-libija/01.jpg" alt="Olimpijski bazen in wellness, Libija" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Olimpijski bazen in wellness, Libija</span>
-          <span class="card-year">2013</span>
-        </span>
-        <span class="card-sub">Libija · šport</span>
-      </button>
-      <button class="card" type="button" data-slug="dvorana-tripoli">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-tripoli/01.jpg" alt="Multifunkcijska športna dvorana Tripoli" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Multifunkcijska športna dvorana Tripoli</span>
-          <span class="card-year">2012</span>
-        </span>
-        <span class="card-sub">Tripoli · šport</span>
-      </button>
-      <button class="card" type="button" data-slug="mercator-novo-mesto">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mercator-novo-mesto/01.jpg" alt="Trgovski center Mercator Novo mesto" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Trgovski center Mercator Novo mesto</span>
-          <span class="card-year">2012</span>
-        </span>
-        <span class="card-sub">Novo mesto · poslovno</span>
-      </button>
-      <button class="card" type="button" data-slug="objekt-mic">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/objekt-mic/01.jpg" alt="Objekt MIC" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Objekt MIC</span>
-          <span class="card-year">2011</span>
-        </span>
-        <span class="card-sub">Slovenija · poslovno</span>
-      </button>
-      <button class="card" type="button" data-slug="urbana-dnevna-soba">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/urbana-dnevna-soba/01.jpg" alt="Urbana dnevna soba na deželi" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Urbana dnevna soba na deželi</span>
-          <span class="card-year">2011</span>
-        </span>
-        <span class="card-sub">Slovenija · stanovanjsko</span>
-      </button>
-      <button class="card" type="button" data-slug="dimnikcobau">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dimnikcobau/01.jpg" alt="Poslovni prostori Dimnikcobau" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Poslovni prostori Dimnikcobau</span>
-          <span class="card-year">2012</span>
-        </span>
-        <span class="card-sub">Slovenija · interier</span>
-      </button>
-      <button class="card" type="button" data-slug="naselje-podcetrtek">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/naselje-podcetrtek/01.jpg" alt="Stanovanjsko naselje Podčetrtek" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Stanovanjsko naselje Podčetrtek</span>
-          <span class="card-year">2013</span>
-        </span>
-        <span class="card-sub">Podčetrtek · stanovanjsko</span>
-      </button>
-      <button class="card" type="button" data-slug="sola-trbovlje">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sola-trbovlje/01.jpg" alt="Prenova OŠ Revirski borci" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Prenova OŠ Revirski borci</span>
-          <span class="card-year">2013</span>
-        </span>
-        <span class="card-sub">Trbovlje · javno</span>
-      </button>
-      <button class="card" type="button" data-slug="ptic-portoroz">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/ptic-portoroz/01.jpg" alt="Študentski dom PTIC Portorož" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Študentski dom PTIC Portorož</span>
-          <span class="card-year">2015</span>
-        </span>
-        <span class="card-sub">Portorož · javno</span>
-      </button>
-      <button class="card" type="button" data-slug="sportna-loska-dolina">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sportna-loska-dolina/01.jpg" alt="Športna dvorana Loška dolina" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Športna dvorana Loška dolina</span>
-          <span class="card-year">2013</span>
-        </span>
-        <span class="card-sub">Loška dolina · šport</span>
-      </button>
-      <button class="card" type="button" data-slug="retail-kragujevac">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/retail-kragujevac/01.jpg" alt="Retail center Kragujevac" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Retail center Kragujevac</span>
-          <span class="card-year">2013</span>
-        </span>
-        <span class="card-sub">Kragujevac · poslovno</span>
-      </button>
-      <button class="card" type="button" data-slug="sveta-gora">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sveta-gora/01.jpg" alt="Mrliška vežica, Zasavska Sveta gora" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Mrliška vežica, Zasavska Sveta gora</span>
-          <span class="card-year">2016</span>
-        </span>
-        <span class="card-sub">Zasavje · javno</span>
-      </button>
-      <button class="card" type="button" data-slug="blok-aurora">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/oppn-aurora/01.jpg" alt="Blok Aurora" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Blok Aurora</span>
-          <span class="card-year">2008</span>
-        </span>
-        <span class="card-sub">Slovenija · stanovanjsko</span>
-      </button>
-      <button class="card" type="button" data-slug="bazen-trbovlje">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-trbovlje/01.jpg" alt="Bazen Trbovlje" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Bazen Trbovlje</span>
-          <span class="card-year">2010</span>
-        </span>
-        <span class="card-sub">Trbovlje · šport</span>
-      </button>
-      <button class="card" type="button" data-slug="pilon-trbovlje">
-        <span class="card-media"><img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pilon-trbovlje/01.jpg" alt="Pilon Trbovlje" loading="lazy"></span>
-        <span class="card-meta">
-          <span class="card-title">Pilon Trbovlje</span>
-          <span class="card-year">2008</span>
-        </span>
-        <span class="card-sub">Trbovlje · poslovno</span>
-      </button></div>
+      <p class="kicker" data-i18n="projectsKicker"></p>
+      <h2 data-i18n="projectsTitle"></h2>
+      <div class="grid-2" id="grid-featured"></div>
+      <div class="grid-3" id="grid-rest"></div>
     </div>
   </section>
-
-  <section class="band" id="storitve">
+  <section class="block-section band" id="storitve">
     <div class="wrap">
-      <p class="kicker" data-i18n="servicesKicker">Kaj delamo</p>
-      <h2 data-i18n="servicesTitle">Celovite arhitekturne storitve</h2>
-      <div class="services">
-        <article class="service">
-          <p class="service-n">01</p>
-          <h3 data-i18n="svcT0">Projektna dokumentacija</h3>
-          <p data-i18n="svcD0">IDZ, DGD in PZI za zahtevne in manj zahtevne objekte — od ideje do izvedbe.</p>
-        </article>
-        <article class="service">
-          <p class="service-n">02</p>
-          <h3 data-i18n="svcT1">Dokumentacija za OPPN</h3>
-          <p data-i18n="svcD1">Občinski podrobni prostorski načrti in pripadajoči elaborati.</p>
-        </article>
-        <article class="service">
-          <p class="service-n">03</p>
-          <h3 data-i18n="svcT2">Oblikovanje interiera</h3>
-          <p data-i18n="svcD2">Celostna notranja oprema stanovanjskih in poslovnih prostorov.</p>
-        </article>
-        <article class="service">
-          <p class="service-n">04</p>
-          <h3 data-i18n="svcT3">Gradbena dovoljenja</h3>
-          <p data-i18n="svcD3">Vodenje postopka do pravnomočnega gradbenega dovoljenja.</p>
-        </article>
-        <article class="service">
-          <p class="service-n">05</p>
-          <h3 data-i18n="svcT4">Izvedbeni projekti</h3>
-          <p data-i18n="svcD4">Podrobna izvedbena dokumentacija za nemoteno delo na gradbišču.</p>
-        </article>
-        <article class="service">
-          <p class="service-n">06</p>
-          <h3 data-i18n="svcT5">Projektantski nadzor</h3>
-          <p data-i18n="svcD5">Nadzor nad izvedbo in dokumentacija za prevzem objekta.</p>
-        </article></div>
+      <p class="kicker" data-i18n="servicesKicker"></p>
+      <h2 data-i18n="servicesTitle"></h2>
+      <div class="services" id="services"></div>
     </div>
   </section>
-
-  <section id="o-nas">
+  <section class="block-section" id="o-nas">
     <div class="wrap about">
       <div>
-        <p class="kicker" data-i18n="aboutKicker">O nas</p>
-        <h2 data-i18n="aboutTitle">Arhitektura z lokalnim značajem</h2>
-        <p data-i18n-html="aboutLead">Fin Ars d.o.o. je arhitekturni biro, ki je nastal leta 2006 v Zagorju ob Savi. Vodji biroja sta <strong>Kristijan Čuk</strong> u.d.i.a., strokovni direktor, in <strong>Borut Dolar</strong>, poslovni direktor.</p>
-        <p data-i18n="aboutTeam">Ekipo sooblikujejo Urša Dirjec Meško, Irena Gorjup Gračner, Simon Škrbec, Dijana Subašič, Vladimir Mladenović in Špela Volaj.</p>
+        <p class="kicker" data-i18n="aboutKicker"></p>
+        <h2 data-i18n="aboutTitle"></h2>
+        <p data-i18n-html="aboutLead"></p>
+        <p data-i18n="aboutTeam"></p>
       </div>
-      <img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/brand/office.jpg" alt="Prostori biroja Fin Ars">
+      <img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/brand/office.jpg" alt="Fin Ars">
     </div>
   </section>
-
   <section class="news" id="novice">
-    <div class="wrap news">
+    <div class="news-layout">
       <div>
-        <p class="kicker" data-i18n="newsKicker">Novice</p>
-        <h2 data-i18n="newsTitle">Digitalna transformacija podjetja FIN ARS</h2>
-        <p data-i18n="newsBody">Naložbo sofinancirata Republika Slovenija in Evropska unija iz Evropskega sklada za regionalni razvoj. Sofinanciranje operacije: do 100.000 €.</p>
+        <p class="kicker" data-i18n="newsKicker"></p>
+        <h2 data-i18n="newsTitle"></h2>
+        <p data-i18n="newsBody"></p>
         <p><a href="https://www.eu-skladi.si/" target="_blank" rel="noreferrer">eu-skladi.si →</a></p>
       </div>
-      <img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/brand/news.jpg" alt="EU kohezijska politika">
+      <img src="https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/brand/news.jpg" alt="EU">
     </div>
   </section>
-
-  <section id="kontakt">
+  <section class="block-section" id="kontakt">
     <div class="wrap">
-      <p class="kicker" data-i18n="contactKicker">Kontakt</p>
-      <h2 data-i18n="contactTitle">Pogovorimo se o vašem projektu</h2>
+      <p class="kicker" data-i18n="contactKicker"></p>
+      <h2 data-i18n="contactTitle"></h2>
       <div class="contact">
         <div>
-          <div class="block"><h3 data-i18n="addressLabel">Naslov</h3><p>Podvine 36<br>1410 Zagorje ob Savi</p></div>
-          <div class="block"><h3 data-i18n="phoneLabel">Telefon</h3><p><a href="tel:+38641686959">+386 41 686 959</a><br><a href="tel:+38631370172">+386 31 370 172</a></p></div>
-          <div class="block"><h3 data-i18n="emailLabel">E-pošta</h3><p><a href="mailto:info@finars.si">info@finars.si</a><br><a href="mailto:kristijan.cuk@finars.si">kristijan.cuk@finars.si</a></p></div>
-          <div class="block"><h3 data-i18n="companyLabel">Podatki podjetja</h3><p data-i18n-html="companyBody">Davčna št.: SI 70790817<br>Matična št.: 2144921000</p></div>
+          <div class="block"><h3 data-i18n="addressLabel"></h3><p>Podvine 36<br>1410 Zagorje ob Savi</p></div>
+          <div class="block"><h3 data-i18n="phoneLabel"></h3><p><a href="tel:+38641686959">+386 41 686 959</a><br><a href="tel:+38631370172">+386 31 370 172</a></p></div>
+          <div class="block"><h3 data-i18n="emailLabel"></h3><p><a href="mailto:info@finars.si">info@finars.si</a><br><a href="mailto:kristijan.cuk@finars.si">kristijan.cuk@finars.si</a></p></div>
+          <div class="block"><h3 data-i18n="companyLabel"></h3><p data-i18n-html="companyBody"></p></div>
         </div>
         <form id="contact-form">
-          <div class="field"><label for="name" data-i18n="nameLabel">Ime in priimek</label><input id="name" name="name" required placeholder="Vaše ime" data-i18n-attr="namePh"></div>
-          <div class="field"><label for="email" data-i18n="emailField">E-pošta</label><input id="email" name="email" type="email" required placeholder="vas@email.si" data-i18n-attr="emailPh"></div>
-          <div class="field"><label for="message" data-i18n="messageLabel">Sporočilo</label><textarea id="message" name="message" required placeholder="Opišite vaš projekt ali vprašanje..." data-i18n-attr="messagePh"></textarea></div>
-          <button class="btn btn-solid" type="submit" data-i18n="send">Pošlji sporočilo</button>
+          <div class="field"><label for="name" data-i18n="nameLabel"></label><input id="name" name="name" required data-i18n-attr="namePh"></div>
+          <div class="field"><label for="email" data-i18n="emailField"></label><input id="email" name="email" type="email" required data-i18n-attr="emailPh"></div>
+          <div class="field"><label for="message" data-i18n="messageLabel"></label><textarea id="message" name="message" required data-i18n-attr="messagePh"></textarea></div>
+          <button class="btn btn-solid" type="submit" data-i18n="send"></button>
         </form>
       </div>
     </div>
   </section>
 </main>
-
-<footer>
-  <div class="wrap foot">
-    <strong>Fin Ars d.o.o.</strong>
-    <span data-i18n="footer">© 2026 Center za arhitekturo · Zagorje ob Savi</span>
-  </div>
+<footer class="site-footer">
+  <div class="wrap foot"><strong>Fin Ars d.o.o.</strong><span data-i18n="footer"></span></div>
 </footer>
-
-<dialog id="project">
-  <div class="dlg">
-    <div class="dlg-top"><button class="close" type="button" aria-label="Zapri">×</button></div>
+<div class="modal" id="modal" hidden>
+  <div class="dlg" role="dialog" aria-modal="true">
+    <div class="dlg-top"><button class="close" type="button" id="close">×</button></div>
     <img class="hero-shot" id="shot" alt="">
     <div class="thumbs" id="thumbs"></div>
     <p class="meta" id="meta"></p>
@@ -570,112 +949,165 @@
     <p class="authors" id="authors"></p>
     <p class="summary" id="summary"></p>
   </div>
-</dialog>
-
+</div>
 <script>
 const projects = [{"slug":"hisa-v-gozdu","title":"Hiša v gozdu","year":2013,"location":"Zasavje","category":"stanovanjsko","authors":"Simon Škrbec, Kristijan Čuk","summary":"Enodružinska, troetažna hiša z delno vkopano kletjo in garažo. V pritličju odprt dnevni prostor z zastekljeno zahodno fasado in izhodom na zeleno teraso s pergolo. 150 m² + 90 m² kleti.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/05.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/06.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/07.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hisa-v-gozdu/08.jpg"],"featured":true},{"slug":"vila-arbos","title":"Vila Arbos","year":2011,"location":"Slovenija","category":"stanovanjsko","authors":"Simon Škrbec, Kristijan Čuk","summary":"Pritlična vila iz naravnih materialov z leseno nosilno konstrukcijo. Orientacija bivalnega dela na jug in zahod, enokapna streha z aktivnimi sončnimi sistemi. 80 m².","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/vila-arbos/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/vila-arbos/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/vila-arbos/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/vila-arbos/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/vila-arbos/05.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/vila-arbos/06.jpg"],"featured":true},{"slug":"pasivna-hisa","title":"Pasivna lesena hiša","year":2011,"location":"Slovenija","category":"stanovanjsko","authors":"Kristijan Čuk, Simon Škrbec","summary":"Energetsko učinkovita lesena enodružinska hiša z visokim standardom toplotne zaščite.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pasivna-hisa/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pasivna-hisa/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pasivna-hisa/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pasivna-hisa/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pasivna-hisa/05.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pasivna-hisa/06.jpg"],"featured":true},{"slug":"mladinski-center-trbovlje","title":"Mladinski center in hotel Trbovlje","year":2011,"location":"Trbovlje","category":"javno","authors":"Simon Škrbec, Darjan Bunta, Kristijan Čuk","summary":"Delno vkopan objekt, ki povezuje Trg revolucije in cesto 1. junija. Pohodna streha kot nov javni prostor. Mladinski center z dvorano in hotel s 24 ležišči. 700 m², K+P+N.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/05.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/06.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/07.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mladinski-center-trbovlje/08.jpg"],"featured":true},{"slug":"parkirna-hisa-sallaumines","title":"Parkirna hiša Sallaumines","year":2016,"location":"Zagorje ob Savi","category":"javno","authors":"Irena Gorjup Gračner, Katja Draš, Kristijan Čuk","summary":"Dvoetažna parkirna hiša na trikotni parceli med peš cono Sallaumines, Obrtniško cesto in stanovanjskim blokom. Ločena dostopa za klet in pritličje.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/parkirna-hisa-sallaumines/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/parkirna-hisa-sallaumines/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/parkirna-hisa-sallaumines/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/parkirna-hisa-sallaumines/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/parkirna-hisa-sallaumines/05.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/parkirna-hisa-sallaumines/06.jpg"],"featured":true},{"slug":"dvorana-bonifika","title":"Športna dvorana Bonifika","year":2012,"location":"Koper","category":"šport","authors":"Vladimir Mladenović, Simon Škrbec, Kristijan Čuk","summary":"Natečajna zasnova večnamenske športne dvorane na Bonifiki.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-bonifika/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-bonifika/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-bonifika/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-bonifika/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-bonifika/05.jpg"],"featured":true},{"slug":"hotel-tripoli","title":"Hotelski in rehabilitacijski center Tripoli","year":2012,"location":"Tripoli","category":"javno","authors":"Fin Ars","summary":"Hotelski in rehabilitacijski kompleks z jasno prostorsko hierarhijo in odprtimi terasami.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hotel-tripoli/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hotel-tripoli/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hotel-tripoli/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hotel-tripoli/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/hotel-tripoli/05.jpg"],"featured":true},{"slug":"bazen-libija","title":"Olimpijski bazen in wellness, Libija","year":2013,"location":"Libija","category":"šport","authors":"Fin Ars","summary":"Notranji olimpijski bazenski kompleks z wellness programom.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-libija/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-libija/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-libija/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-libija/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-libija/05.jpg"]},{"slug":"dvorana-tripoli","title":"Multifunkcijska športna dvorana Tripoli","year":2012,"location":"Tripoli","category":"šport","authors":"Fin Ars","summary":"Večnamenska športna dvorana z bazenom.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-tripoli/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-tripoli/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-tripoli/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dvorana-tripoli/04.jpg"]},{"slug":"mercator-novo-mesto","title":"Trgovski center Mercator Novo mesto","year":2012,"location":"Novo mesto","category":"poslovno","authors":"Fin Ars","summary":"Projektiranje trgovskega centra z jasno prometno shemo in javnim robom.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mercator-novo-mesto/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mercator-novo-mesto/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mercator-novo-mesto/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mercator-novo-mesto/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/mercator-novo-mesto/05.jpg"]},{"slug":"objekt-mic","title":"Objekt MIC","year":2011,"location":"Slovenija","category":"poslovno","authors":"Fin Ars","summary":"Poslovni objekt z izrazito fasadno ritmiko in dnevno svetlobo v globini tlorisa.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/objekt-mic/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/objekt-mic/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/objekt-mic/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/objekt-mic/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/objekt-mic/05.jpg"]},{"slug":"urbana-dnevna-soba","title":"Urbana dnevna soba na deželi","year":2011,"location":"Slovenija","category":"stanovanjsko","authors":"Fin Ars","summary":"Stanovanjska zasnova, ki združuje zasebno bivanje in odprt odnos do krajine.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/urbana-dnevna-soba/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/urbana-dnevna-soba/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/urbana-dnevna-soba/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/urbana-dnevna-soba/04.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/urbana-dnevna-soba/05.jpg"]},{"slug":"dimnikcobau","title":"Poslovni prostori Dimnikcobau","year":2012,"location":"Slovenija","category":"interier","authors":"Fin Ars","summary":"Notranja oprema in prenova poslovnih prostorov.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dimnikcobau/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dimnikcobau/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dimnikcobau/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/dimnikcobau/04.jpg"]},{"slug":"naselje-podcetrtek","title":"Stanovanjsko naselje Podčetrtek","year":2013,"location":"Podčetrtek","category":"stanovanjsko","authors":"Fin Ars","summary":"Urbanistična in arhitekturna zasnova stanovanjskega naselja.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/naselje-podcetrtek/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/naselje-podcetrtek/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/naselje-podcetrtek/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/naselje-podcetrtek/04.jpg"]},{"slug":"sola-trbovlje","title":"Prenova OŠ Revirski borci","year":2013,"location":"Trbovlje","category":"javno","authors":"Fin Ars","summary":"Prenova osnovne šole z izboljšano dnevno svetlobo in jasnejšimi komunikacijami.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sola-trbovlje/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sola-trbovlje/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sola-trbovlje/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sola-trbovlje/04.jpg"]},{"slug":"ptic-portoroz","title":"Študentski dom PTIC Portorož","year":2015,"location":"Portorož","category":"javno","authors":"Fin Ars","summary":"Prenova študentskega doma PTIC in notranje opreme bivalnih enot.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/ptic-portoroz/01.jpg"]},{"slug":"sportna-loska-dolina","title":"Športna dvorana Loška dolina","year":2013,"location":"Loška dolina","category":"šport","authors":"Fin Ars","summary":"Natečajna zasnova športne dvorane za Loško dolino.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sportna-loska-dolina/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sportna-loska-dolina/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sportna-loska-dolina/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sportna-loska-dolina/04.jpg"]},{"slug":"retail-kragujevac","title":"Retail center Kragujevac","year":2013,"location":"Kragujevac","category":"poslovno","authors":"Fin Ars","summary":"Trgovski center z jasno vertikalno komunikacijo in javnim trgom.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/retail-kragujevac/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/retail-kragujevac/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/retail-kragujevac/03.jpg"]},{"slug":"sveta-gora","title":"Mrliška vežica, Zasavska Sveta gora","year":2016,"location":"Zasavje","category":"javno","authors":"Fin Ars","summary":"Spoštljiv javni objekt na Zasavski Sveti gori.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sveta-gora/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sveta-gora/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sveta-gora/03.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/sveta-gora/04.jpg"]},{"slug":"blok-aurora","title":"Blok Aurora","year":2008,"location":"Slovenija","category":"stanovanjsko","authors":"Fin Ars","summary":"Stanovanjski blok Aurora.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/oppn-aurora/01.jpg"]},{"slug":"bazen-trbovlje","title":"Bazen Trbovlje","year":2010,"location":"Trbovlje","category":"šport","authors":"Fin Ars","summary":"Projekt bazenskega kompleksa v Trbovljah.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-trbovlje/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-trbovlje/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/bazen-trbovlje/03.jpg"]},{"slug":"pilon-trbovlje","title":"Pilon Trbovlje","year":2008,"location":"Trbovlje","category":"poslovno","authors":"Fin Ars","summary":"Poslovni objekt Pilon v Trbovljah.","images":["https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pilon-trbovlje/01.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pilon-trbovlje/02.jpg","https://cdn.jsdelivr.net/gh/tommyvimeo-gif/finars@main/public/projects/pilon-trbovlje/03.jpg"]}];
-const bySlug = Object.fromEntries(projects.map((p) => [p.slug, p]));
-const dialog = document.getElementById("project");
-const shot = document.getElementById("shot");
-const thumbs = document.getElementById("thumbs");
-const menuBtn = document.querySelector(".menu-btn");
-const mobile = document.getElementById("mobile-nav");
-
-function show(src, title) {
-  shot.src = src;
-  shot.alt = title;
-  [...thumbs.children].forEach((b) => b.setAttribute("aria-current", b.dataset.src === src ? "true" : "false"));
-}
-
-document.querySelectorAll(".card").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const raw = bySlug[btn.dataset.slug];
-    const p = localize(raw);
-    document.getElementById("ptitle").textContent = p.title;
-    document.getElementById("meta").textContent = p.year + " · " + p.location + " · " + p.category;
-    document.getElementById("authors").textContent = ui[lang].authors + ": " + raw.authors;
-    document.getElementById("summary").textContent = p.summary;
-    thumbs.innerHTML = "";
-    p.images.forEach((src) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.dataset.src = src;
-      b.innerHTML = '<img alt="" src="' + src + '">';
-      b.addEventListener("click", () => show(src, p.title));
-      thumbs.appendChild(b);
-    });
-    show(p.images[0], p.title);
-    dialog.showModal();
-  });
-});
-
-dialog.querySelector(".close").addEventListener("click", () => dialog.close());
-dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
-
-menuBtn.addEventListener("click", () => {
-  const open = mobile.style.display === "block";
-  mobile.style.display = open ? "none" : "block";
-  menuBtn.setAttribute("aria-expanded", String(!open));
-  menuBtn.setAttribute("aria-label", open ? ui[lang].menuOpen : ui[lang].menuClose);
-  menuBtn.textContent = open ? "☰" : "×";
-});
-mobile.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
-  mobile.style.display = "none";
-  menuBtn.setAttribute("aria-expanded", "false");
-  menuBtn.textContent = "☰";
-}));
-
-document.getElementById("contact-form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const data = new FormData(e.currentTarget);
-  const body = ui[lang].mailName + ": " + data.get("name") + "\n" + ui[lang].mailEmail + ": " + data.get("email") + "\n\n" + data.get("message");
-  location.href = "mailto:info@finars.si?subject=" + encodeURIComponent(ui[lang].mailSubject) + "&body=" + encodeURIComponent(body);
-});
-
 const enProjects = {"hisa-v-gozdu":{"title":"House in the woods","location":"Zasavje","category":"residential","summary":"A three-storey family house with a partly buried basement and garage. The ground floor is an open living space with a glazed west façade opening onto a green terrace and pergola. 150 m² plus 90 m² of basement."},"vila-arbos":{"title":"Villa Arbos","location":"Slovenia","category":"residential","summary":"A single-storey villa in natural materials with a timber structure. Living spaces face south and west, under a mono-pitch roof with active solar systems. 80 m²."},"pasivna-hisa":{"title":"Passive timber house","location":"Slovenia","category":"residential","summary":"An energy-efficient timber family house built to a high standard of thermal protection."},"mladinski-center-trbovlje":{"title":"Youth centre and hotel, Trbovlje","location":"Trbovlje","category":"public","summary":"A partly buried building linking Revolution Square and 1 June Street. The walkable roof becomes a new public space. A youth centre with a hall and a hotel with 24 beds. 700 m², basement, ground and first floor."},"parkirna-hisa-sallaumines":{"title":"Sallaumines car park","location":"Zagorje ob Savi","category":"public","summary":"A two-storey car park on a triangular plot between the Sallaumines pedestrian zone, Obrtniška cesta and a residential block. Separate access to the basement and the ground floor."},"dvorana-bonifika":{"title":"Bonifika sports hall","location":"Koper","category":"sport","summary":"Competition design for a multi-purpose sports hall at Bonifika."},"hotel-tripoli":{"title":"Hotel and rehabilitation centre, Tripoli","location":"Tripoli","category":"public","summary":"A hotel and rehabilitation complex with a clear spatial hierarchy and open terraces."},"bazen-libija":{"title":"Olympic pool and wellness, Libya","location":"Libya","category":"sport","summary":"An indoor Olympic swimming complex with a wellness programme."},"dvorana-tripoli":{"title":"Multifunctional sports hall, Tripoli","location":"Tripoli","category":"sport","summary":"A multi-purpose sports hall with a swimming pool."},"mercator-novo-mesto":{"title":"Mercator shopping centre, Novo mesto","location":"Novo mesto","category":"commercial","summary":"Design of a shopping centre with a clear traffic layout and a public edge."},"objekt-mic":{"title":"MIC building","location":"Slovenia","category":"commercial","summary":"A commercial building with a strong façade rhythm and daylight drawn deep into the plan."},"urbana-dnevna-soba":{"title":"An urban living room in the countryside","location":"Slovenia","category":"residential","summary":"A house that combines private living with an open relationship to the landscape."},"dimnikcobau":{"title":"Dimnikcobau offices","location":"Slovenia","category":"interior","summary":"Interior design and refurbishment of office space."},"naselje-podcetrtek":{"title":"Podčetrtek housing estate","location":"Podčetrtek","category":"residential","summary":"Urban and architectural design of a housing estate."},"sola-trbovlje":{"title":"Renovation of Revirski borci primary school","location":"Trbovlje","category":"public","summary":"Refurbishment of a primary school, with better daylight and clearer circulation."},"ptic-portoroz":{"title":"PTIC student residence, Portorož","location":"Portorož","category":"public","summary":"Refurbishment of the PTIC student residence and the interiors of the rooms."},"sportna-loska-dolina":{"title":"Loška dolina sports hall","location":"Loška dolina","category":"sport","summary":"Competition design for a sports hall in Loška dolina."},"retail-kragujevac":{"title":"Kragujevac retail centre","location":"Kragujevac","category":"commercial","summary":"A shopping centre with clear vertical circulation and a public square."},"sveta-gora":{"title":"Funeral chapel, Zasavska Sveta gora","location":"Zasavje","category":"public","summary":"A restrained public building at Zasavska Sveta gora."},"blok-aurora":{"title":"Aurora apartment block","location":"Slovenia","category":"residential","summary":"The Aurora residential block."},"bazen-trbovlje":{"title":"Trbovlje swimming pool","location":"Trbovlje","category":"sport","summary":"Design of a swimming complex in Trbovlje."},"pilon-trbovlje":{"title":"Pilon, Trbovlje","location":"Trbovlje","category":"commercial","summary":"The Pilon commercial building in Trbovlje."}};
 const ui = {"sl":{"nav0":"Projekti","nav1":"Storitve","nav2":"O nas","nav3":"Kontakt","langLabel":"Jezik","menuOpen":"Odpri meni","menuClose":"Zapri meni","heroKicker":"Arhitekturni biro · od 2006","heroTitle":"Oblikujemo <em>prostore</em> z namenom","lede":"Center za arhitekturo, gradbeno projektiranje in celovite storitve — od ideje do izvedbe.","viewProjects":"Ogled projektov","getInTouch":"Stopite v stik","stat0":"Let izkušenj","stat1":"Projektov","stat2":"Strokovnjakov","stat3":"Bonitetna ocena","projectsKicker":"Izbrani projekti","projectsTitle":"Prostor, ki govori zase","servicesKicker":"Kaj delamo","servicesTitle":"Celovite arhitekturne storitve","svcT0":"Projektna dokumentacija","svcD0":"IDZ, DGD in PZI za zahtevne in manj zahtevne objekte — od ideje do izvedbe.","svcT1":"Dokumentacija za OPPN","svcD1":"Občinski podrobni prostorski načrti in pripadajoči elaborati.","svcT2":"Oblikovanje interiera","svcD2":"Celostna notranja oprema stanovanjskih in poslovnih prostorov.","svcT3":"Gradbena dovoljenja","svcD3":"Vodenje postopka do pravnomočnega gradbenega dovoljenja.","svcT4":"Izvedbeni projekti","svcD4":"Podrobna izvedbena dokumentacija za nemoteno delo na gradbišču.","svcT5":"Projektantski nadzor","svcD5":"Nadzor nad izvedbo in dokumentacija za prevzem objekta.","aboutKicker":"O nas","aboutTitle":"Arhitektura z lokalnim značajem","aboutLead":"Fin Ars d.o.o. je arhitekturni biro, ki je nastal leta 2006 v Zagorju ob Savi. Vodji biroja sta <strong>Kristijan Čuk</strong> u.d.i.a., strokovni direktor, in <strong>Borut Dolar</strong>, poslovni direktor.","aboutTeam":"Ekipo sooblikujejo Urša Dirjec Meško, Irena Gorjup Gračner, Simon Škrbec, Dijana Subašič, Vladimir Mladenović in Špela Volaj.","newsKicker":"Novice","newsTitle":"Digitalna transformacija podjetja FIN ARS","newsBody":"Naložbo sofinancirata Republika Slovenija in Evropska unija iz Evropskega sklada za regionalni razvoj. Sofinanciranje operacije: do 100.000 €.","contactKicker":"Kontakt","contactTitle":"Pogovorimo se o vašem projektu","addressLabel":"Naslov","phoneLabel":"Telefon","emailLabel":"E-pošta","companyLabel":"Podatki podjetja","companyBody":"Davčna št.: SI 70790817<br>Matična št.: 2144921000","nameLabel":"Ime in priimek","namePh":"Vaše ime","emailField":"E-pošta","emailPh":"vas@email.si","messageLabel":"Sporočilo","messagePh":"Opišite vaš projekt ali vprašanje...","send":"Pošlji sporočilo","authors":"Avtorji","footer":"© 2026 Center za arhitekturo · Zagorje ob Savi","mailName":"Ime","mailEmail":"E-pošta","mailSubject":"Povpraševanje — Fin Ars"},"en":{"nav0":"Projects","nav1":"Services","nav2":"About","nav3":"Contact","langLabel":"Language","menuOpen":"Open menu","menuClose":"Close menu","heroKicker":"Architecture studio · since 2006","heroTitle":"We shape <em>spaces</em> with purpose","lede":"A studio for architecture, building design and complete services — from the first idea to completion.","viewProjects":"View projects","getInTouch":"Get in touch","stat0":"Years of practice","stat1":"Projects","stat2":"Specialists","stat3":"Credit rating","projectsKicker":"Selected work","projectsTitle":"Space that speaks for itself","servicesKicker":"What we do","servicesTitle":"A complete architectural practice","svcT0":"Project documentation","svcD0":"Concept, permit and construction drawings for demanding and simpler buildings — from the first idea to site.","svcT1":"OPPN documentation","svcD1":"Municipal detailed spatial plans and the studies that accompany them.","svcT2":"Interior design","svcD2":"Complete interiors for homes and workplaces.","svcT3":"Building permits","svcD3":"Managing the process through to a final building permit.","svcT4":"Construction drawings","svcD4":"Detailed documentation so work on site can proceed without interruption.","svcT5":"Design supervision","svcD5":"Supervision of construction and the documents needed to hand the building over.","aboutKicker":"About","aboutTitle":"Architecture with a local character","aboutLead":"Fin Ars d.o.o. is an architecture studio founded in 2006 in Zagorje ob Savi. It is led by <strong>Kristijan Čuk</strong>, M.Arch., design director, and <strong>Borut Dolar</strong>, managing director.","aboutTeam":"The team includes Urša Dirjec Meško, Irena Gorjup Gračner, Simon Škrbec, Dijana Subašič, Vladimir Mladenović and Špela Volaj.","newsKicker":"News","newsTitle":"Digital transformation of FIN ARS","newsBody":"The investment is co-financed by the Republic of Slovenia and the European Union from the European Regional Development Fund. Co-financing of the operation: up to €100,000.","contactKicker":"Contact","contactTitle":"Let’s talk about your project","addressLabel":"Address","phoneLabel":"Phone","emailLabel":"Email","companyLabel":"Company details","companyBody":"Tax no.: SI 70790817<br>Reg. no.: 2144921000","nameLabel":"Full name","namePh":"Your name","emailField":"Email","emailPh":"you@email.com","messageLabel":"Message","messagePh":"Describe your project or question...","send":"Send message","authors":"Authors","footer":"© 2026 Centre for architecture · Zagorje ob Savi","mailName":"Name","mailEmail":"Email","mailSubject":"Enquiry — Fin Ars"}};
+const slides = projects.filter((p) => p.featured).map((p) => p.images[0]);
+const bg = document.getElementById("bg");
+slides.forEach((src, i) => {
+  const img = document.createElement("img");
+  img.src = src;
+  img.alt = "";
+  img.className = i === 0 ? "bg-slide is-on" : "bg-slide";
+  const anchor = bg.querySelector(".bg-glow");
+  bg.insertBefore(img, anchor);
+});
 let lang = "sl";
+let slide = 0;
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function pack() { return ui[lang]; }
 function localize(p) {
   if (lang !== "en" || !enProjects[p.slug]) return p;
   return Object.assign({}, p, enProjects[p.slug]);
 }
-function paintCards() {
-  document.querySelectorAll(".card").forEach((btn) => {
-    const raw = bySlug[btn.dataset.slug];
-    const p = localize(raw);
-    const title = btn.querySelector(".card-title");
-    const sub = btn.querySelector(".card-sub");
-    const img = btn.querySelector("img");
-    if (title) title.textContent = p.title;
-    if (sub) sub.textContent = p.location + " · " + p.category;
-    if (img) img.alt = p.title;
+function card(p, cycle) {
+  const btn = document.createElement("button");
+  btn.className = "card";
+  btn.type = "button";
+  const frames = cycle ? p.images.slice(0, 4) : [p.images[0]];
+  const media = document.createElement("span");
+  media.className = "card-media";
+  frames.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = i === 0 ? p.title : "";
+    img.loading = "lazy";
+    if (i === 0) img.className = "is-on";
+    media.appendChild(img);
   });
+  if (cycle && frames.length > 1 && !reduce) {
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % frames.length;
+      [...media.children].forEach((el, n) => el.classList.toggle("is-on", n === i));
+    }, 5200);
+  }
+  const meta = document.createElement("span");
+  meta.className = "card-meta";
+  meta.innerHTML = '<span class="card-title"></span><span class="card-year"></span>';
+  const sub = document.createElement("span");
+  sub.className = "card-sub";
+  btn.append(media, meta, sub);
+  btn.addEventListener("click", () => openProject(p));
+  btn._fill = () => {
+    const loc = localize(p);
+    meta.querySelector(".card-title").textContent = loc.title;
+    meta.querySelector(".card-year").textContent = String(loc.year);
+    sub.textContent = loc.location + " · " + loc.category;
+    media.querySelector("img").alt = loc.title;
+  };
+  btn._fill();
+  return btn;
+}
+const featured = document.getElementById("grid-featured");
+const rest = document.getElementById("grid-rest");
+const cards = [];
+projects.forEach((p) => {
+  const node = card(p, Boolean(p.featured));
+  (p.featured ? featured : rest).appendChild(node);
+  cards.push(node);
+});
+const services = document.getElementById("services");
+for (let n = 0; n < 6; n++) {
+  const art = document.createElement("article");
+  art.className = "service";
+  art.innerHTML = '<p class="service-n">' + String(n + 1).padStart(2, "0") + '</p><h3 data-i18n="svcT' + n + '"></h3><p data-i18n="svcD' + n + '"></p>';
+  services.appendChild(art);
 }
 function applyLang(next) {
   lang = next === "en" ? "en" : "sl";
   document.documentElement.lang = lang;
-  const pack = ui[lang];
-  document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = pack[el.dataset.i18n]; });
-  document.querySelectorAll("[data-i18n-html]").forEach((el) => { el.innerHTML = pack[el.dataset.i18nHtml]; });
-  document.querySelectorAll("[data-i18n-attr]").forEach((el) => { el.setAttribute("placeholder", pack[el.dataset.i18nAttr]); });
+  const text = pack();
+  document.querySelectorAll("[data-i18n]").forEach((el) => { el.textContent = text[el.dataset.i18n] || ""; });
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => { el.innerHTML = text[el.dataset.i18nHtml] || ""; });
+  document.querySelectorAll("[data-i18n-attr]").forEach((el) => { el.placeholder = text[el.dataset.i18nAttr] || ""; });
   document.querySelectorAll("[data-set-lang]").forEach((btn) => {
     btn.setAttribute("aria-pressed", btn.dataset.setLang === lang ? "true" : "false");
   });
-  const group = document.querySelector(".langs");
-  if (group) group.setAttribute("aria-label", pack.langLabel);
-  const menuOpen = mobile.style.display === "block";
-  menuBtn.setAttribute("aria-label", menuOpen ? pack.menuClose : pack.menuOpen);
-  paintCards();
+  document.querySelector(".langs").setAttribute("aria-label", text.langLabel);
+  cards.forEach((node) => node._fill());
   try { localStorage.setItem("finars-lang", lang); } catch (e) {}
 }
 document.querySelectorAll("[data-set-lang]").forEach((btn) => {
   btn.addEventListener("click", () => applyLang(btn.dataset.setLang));
 });
+const menuBtn = document.querySelector(".menu-btn");
+const mobile = document.getElementById("mobile-nav");
+menuBtn.addEventListener("click", () => {
+  const open = !mobile.hidden;
+  mobile.hidden = open;
+  menuBtn.setAttribute("aria-expanded", String(!open));
+  menuBtn.setAttribute("aria-label", open ? pack().menuOpen : pack().menuClose);
+  menuBtn.textContent = open ? "☰" : "×";
+});
+mobile.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => {
+  mobile.hidden = true;
+  menuBtn.setAttribute("aria-expanded", "false");
+  menuBtn.textContent = "☰";
+}));
+const modal = document.getElementById("modal");
+const shot = document.getElementById("shot");
+const thumbs = document.getElementById("thumbs");
+function openProject(raw) {
+  const p = localize(raw);
+  document.getElementById("ptitle").textContent = p.title;
+  document.getElementById("meta").textContent = p.year + " · " + p.location + " · " + p.category;
+  document.getElementById("authors").textContent = pack().authors + ": " + raw.authors;
+  document.getElementById("summary").textContent = p.summary;
+  thumbs.innerHTML = "";
+  p.images.forEach((src, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.innerHTML = '<img alt="" src="' + src + '">';
+    b.addEventListener("click", () => show(src, p.title, b));
+    thumbs.appendChild(b);
+    if (i === 0) show(src, p.title, b);
+  });
+  modal.hidden = false;
+}
+function show(src, title, button) {
+  shot.src = src;
+  shot.alt = title;
+  [...thumbs.children].forEach((b) => b.setAttribute("aria-current", b === button ? "true" : "false"));
+}
+document.getElementById("close").addEventListener("click", () => { modal.hidden = true; });
+modal.addEventListener("click", (e) => { if (e.target === modal) modal.hidden = true; });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") modal.hidden = true; });
+document.getElementById("contact-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const data = new FormData(e.currentTarget);
+  const body = pack().mailName + ": " + data.get("name") + "\n" + pack().mailEmail + ": " + data.get("email") + "\n\n" + data.get("message");
+  location.href = "mailto:info@finars.si?subject=" + encodeURIComponent(pack().mailSubject) + "&body=" + encodeURIComponent(body);
+});
+const slideImgs = [...bg.querySelectorAll(".bg-slide")];
+const counter = document.getElementById("slide-count");
+function paintSlide() {
+  slideImgs.forEach((img, i) => img.classList.toggle("is-on", i === slide));
+  counter.textContent = String(slide + 1).padStart(2, "0") + " / " + String(slides.length).padStart(2, "0");
+}
+if (!reduce) {
+  setInterval(() => {
+    slide = (slide + 1) % slides.length;
+    paintSlide();
+  }, 7000);
+}
+paintSlide();
 try {
-  const saved = localStorage.getItem("finars-lang");
-  if (saved === "en") applyLang("en");
-} catch (e) {}
-
+  if (localStorage.getItem("finars-lang") === "en") applyLang("en");
+  else applyLang("sl");
+} catch (e) { applyLang("sl"); }
 </script>
 </body>
 </html>
